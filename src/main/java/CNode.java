@@ -7,10 +7,9 @@ import java.util.*;
 
 public class CNode extends FullCPTNode implements Comparable<CNode>{
 
-    private String evidenceIndicator;
-    private String factor;
     private Set<CNode> connections = new HashSet<CNode>();
     private Set<Pair<CNode,CNode>> fillInEdge;
+    private int fillInEdgeNum;
 
     public CNode(RandomVariable var, double[] distribution) {
         this(var, distribution, (Node[])null);
@@ -19,15 +18,6 @@ public class CNode extends FullCPTNode implements Comparable<CNode>{
 
     public CNode(RandomVariable var, double[] values, Node... parents) {
         super(var, values, parents);
-        this.evidenceIndicator = "e_"+var.getName();
-        factor="";
-        if(parents!=null && parents.length>0){
-            factor = "f_"+var.getName()+"|";
-            for (Node n : parents)
-                factor+=n.getRandomVariable().getName();
-        }
-
-
     }
 
 
@@ -55,10 +45,13 @@ public class CNode extends FullCPTNode implements Comparable<CNode>{
         CNode[] connectionArray = connections.toArray(new CNode[connections.size()]);
 
         fillInEdge = new HashSet<>();
+        this.fillInEdgeNum=0;
         for (int i = 0; i < connectionArray.length-1; i++)
             for (int j = i+1; j < connectionArray.length; j++)
-                if (!connectionArray[i].connections.contains(connectionArray[j]))
+                if (!connectionArray[i].connections.contains(connectionArray[j])){
                     fillInEdge.add(new Pair<>(connectionArray[i], connectionArray[j]));
+                    fillInEdgeNum++;
+                }
     }
 
     public Set<Pair<CNode, CNode>> getFillInEdge() {
@@ -67,14 +60,6 @@ public class CNode extends FullCPTNode implements Comparable<CNode>{
 
     public Set<CNode> getConnections() {
         return connections;
-    }
-
-    public String getEvidenceIndicator() {
-        return evidenceIndicator;
-    }
-
-    public String getFactor() {
-        return factor;
     }
 
     public Set<CNode> getFamily(){
@@ -86,12 +71,7 @@ public class CNode extends FullCPTNode implements Comparable<CNode>{
 
     @Override
     public String toString() {
-        String val = "";
-        return ""+this.getRandomVariable().getName()+/*":"+ Arrays.toString(this.fillInEdge) +*/""; //da eliminare
-        /*val += this.getRandomVariable().getName() +": ";
-        for (CNode c : connections)
-            val+=c.getRandomVariable().getName()+" ";
-        return val.substring(0,val.length()-1);*/
+        return this.getRandomVariable().getName();
     }
 
     @Override
@@ -106,7 +86,7 @@ public class CNode extends FullCPTNode implements Comparable<CNode>{
     public int compareTo(CNode that) {
 
         if(this.getConnections().size()  == that.getConnections().size())
-            return this.getFillInEdge().size() - that.getFillInEdge().size();
+            return this.fillInEdgeNum - that.fillInEdgeNum;
         return this.getConnections().size()-that.getConnections().size();
     }
 }

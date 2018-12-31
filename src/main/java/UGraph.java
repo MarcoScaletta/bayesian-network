@@ -9,13 +9,13 @@ public class UGraph {
     private BayesianNetwork bn;
     private Set<CNode> cNodes;
 
-    private List<Cluster> clusters;
     private Set<String> clusteredVar;
+    private Jointree jointree;
 
     public UGraph(BayesianNetwork bn){
         this.bn=bn;
         this.cNodes = new HashSet<>();
-        this.clusters = new LinkedList<>();
+
         this.clusteredVar = new HashSet<>();
         for (RandomVariable r : bn.getVariablesInTopologicalOrder()){
             CNode c = (CNode)  bn.getNode(r);
@@ -33,22 +33,14 @@ public class UGraph {
         Arrays.sort(cNodesArray);
         System.out.println("Elimination order:"+Arrays.toString(cNodesArray));
         fillEdge(cNodesArray);
-        findClusters(cNodesArray);
-
-        System.out.println("Cluster:");
-        for (Cluster c : clusters)
-            System.out.println("-> "+c);
-        connectClusters();
-
+        createJointree(cNodesArray);
     }
 
 
     private void fillEdge(CNode [] cNodesArray){
         Set<CNode> eliminatedCNode = new HashSet<>();
-        Arrays.sort(cNodesArray);
 
         for(CNode c : cNodesArray){
-
             eliminatedCNode.add(c);
             c.updateFillInEdge();
             for(Pair<CNode,CNode> p : c.getFillInEdge())
@@ -61,75 +53,41 @@ public class UGraph {
     }
 
 
-    private void findClusters(CNode [] cNodesArray){
+    private void createJointree(CNode [] cNodesArray){
 
-        CNode mainCNode;
         boolean alreadyInCluster;
-        boolean familyInCluster;
 
+        List<Cluster> clusters = new LinkedList<>();
 
         Set<CNode> deletedNode = new HashSet<>();
-        Set<CNode> tmpNeighbourSet = new HashSet<>();
-
+        Set<CNode> allNodesForCluster = new HashSet<>();
 
         for (int i = 0; i < cNodesArray.length; i++) {
             alreadyInCluster = false;
             deletedNode.add(cNodesArray[i]);
+            allNodesForCluster.add(cNodesArray[i]);
 
-            mainCNode = cNodesArray[i];
-            Set<CNode> tmp = new HashSet<>();
-            for (CNode c : mainCNode.getConnections())
-                if(!deletedNode.contains(c))
-                    tmp.add(c);
-
-            //tmpNeighbourSet.addAll((Set<CNode>) (Set<?>) mainCNode.getParents());
-            familyInCluster = false;
-
-            Iterator cIt1 = clusters.iterator();
-            while(cIt1.hasNext() && !familyInCluster){
-                if(((Cluster)cIt1.next()).getAllNodes().containsAll(mainCNode.getFamily()))
-                    familyInCluster=true;
-            }
-            if(!familyInCluster)
-                tmpNeighbourSet.addAll((Set<CNode>) (Set<?>) mainCNode.getParents());
-
-
-            for (CNode neighbour : cNodesArray[i].getConnections()){
-                if(!deletedNode.contains(neighbour)){
-                    tmpNeighbourSet.add(neighbour);
-                }
-            }
+            for (CNode neighbour : cNodesArray[i].getConnections())
+                if(!deletedNode.contains(neighbour))
+                    allNodesForCluster.add(neighbour);
 
             Iterator cIt = clusters.iterator();
             while(cIt.hasNext() && !alreadyInCluster){
                 Cluster c = (Cluster) cIt.next();
-
-                Set<CNode> childAndParents = new HashSet<CNode>();
-                Set<CNode> allNodeOfCluster = new HashSet<CNode>();
-
-                allNodeOfCluster.addAll(c.getSecondaryCNodes());
-                allNodeOfCluster.addAll(c.getMainCNodes());
-                childAndParents.add(mainCNode);
-                childAndParents.addAll(tmpNeighbourSet);
-
-                alreadyInCluster = allNodeOfCluster.containsAll(childAndParents);
-
-                if(alreadyInCluster){
-                    c.getSecondaryCNodes().remove(mainCNode);
-                    c.getMainCNodes().add(mainCNode);
-                }
-
+                alreadyInCluster = c.getAllNodes().containsAll(allNodesForCluster);
             }
 
             if(!alreadyInCluster)
-                clusters.add(new Cluster(mainCNode,tmpNeighbourSet));
+                clusters.add(new Cluster(allNodesForCluster));
 
-            tmpNeighbourSet.clear();
+            allNodesForCluster.clear();
         }
+        connectClusters(clusters);
+        jointree = new Jointree(clusters);
 
     }
 
-    private void connectClusters(){
+    private void connectClusters(List<Cluster> clusters){
         Set<Cluster> connected = new HashSet<>();
         Cluster tmp;
         List<Cluster> reversedList = new LinkedList<>(clusters);
@@ -140,9 +98,9 @@ public class UGraph {
             connected.add(tmp);
         }
         for(Cluster cI : reversedList){
+            System.out.println("Cluster:"+cI);
             inserted = false;
             if(!connected.contains(cI)){
-                System.out.println("Cluster:"+cI);
                 Iterator<Cluster> it = connected.iterator();
                 while(it.hasNext() && !inserted){
                     Cluster cJ=it.next();
@@ -151,8 +109,6 @@ public class UGraph {
                         allCNodesFromClusters.retainAll(cI.getAllNodes());
                         if(cJ.getAllNodes().containsAll(allCNodesFromClusters)) {
 
-                            System.out.println("--------CJ :"+cJ);
-                            System.out.println("--------CI :"+cI);
                             cI.getNeighbours().add(cJ);
                             cJ.getNeighbours().add(cI);
                             inserted=true;
@@ -171,8 +127,8 @@ public class UGraph {
         return cNodeSet;
     }
 
-    public List<Cluster> getClusters() {
-        return clusters;
+    public Jointree getJointree() {
+        return jointree;
     }
 
     public Set<CNode> getcNodes() {
