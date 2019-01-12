@@ -11,9 +11,10 @@ import java.util.Set;
 public class VariableParser {
 
     private static final String HEADER_NAME_REGEX = "(variable) (\\w+) \\{";
+    private static final String TYPE_VAL = "([^;,]+)";
     private static final String TYPE_VALUE_REGEX =
-            "( {2})(type) (\\w+) (\\[) (\\d+) ] " +
-                    "\\{ ((\\w+)|((\\w)+, )+(\\w+)) };";
+            "(\\s*)(type)(\\s*)(\\w+)(\\s*)(\\[)(\\s*)(\\d+)(\\s*)](\\s*)" +
+                    "\\{ ((\\w+)|("+TYPE_VAL+", )+"+TYPE_VAL+") };";
     private static final String CLOSE = "}";
 
     private static final String PATTERN_BIF_VARIABLE = HEADER_NAME_REGEX+"\\s*"+TYPE_VALUE_REGEX+"\\s*"+CLOSE;
@@ -47,7 +48,7 @@ public class VariableParser {
         if(domain == null)
             throw new Exception("domain not defined for variable "+"["+varName+"]");
 
-        this.parsedVariable = new RandVar(varName,domain);
+        this.parsedVariable = new RandVar(varName.toUpperCase(),domain);
     }
 
     public RandomVariable getParsedVariable() {

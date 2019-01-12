@@ -28,12 +28,17 @@ public abstract class BNReader {
     public BNReader(String file) throws Exception {
         variableParsers = new ArrayList<>();
         probabilityParsers = new ArrayList<>();
+        System.out.println("Build network");
         bayesianNetwork = buildNetwork(file);
     }
 
     private BayesianNetwork buildNetwork(String file) throws Exception {
 
+
+        System.out.println("varAndProbDef");
         varAndProbDef(file);
+
+        System.out.println("sortProbParsers");
         sortProbParsers();
 //        for (ProbabilityParser probabilityParser : probabilityParsers)
 //            System.out.println(probabilityParser);
@@ -129,14 +134,17 @@ public abstract class BNReader {
 //                            System.out.println("Added " + probabilityParser);
 //                            System.out.println(Arrays.toString(probabilityParsers.toArray()));
                         } catch (Exception e) {
-                            System.err.println("error parsing probability definition:"+definition + "line " + line);
+                            e.printStackTrace();
+                            System.err.println("line:" + line);
                         }
                     }
                     else {
+
                         try {
                             variableParsers.add(new VariableParser(definition));
                         } catch (Exception e) {
-                            System.err.println("error parsing variable definition:"+definition + "line " + line);
+                            e.printStackTrace();
+                            System.err.println("line:" + line);
                         }
                     }
 
@@ -180,11 +188,22 @@ public abstract class BNReader {
             sum = 0;
             var = variableHashMap.get(p.getCondVar());
 
+            System.out.println("p: "+p);
+            System.out.println("p.probs: "+ Arrays.toString(p.getProbabilities()));
             for (int i=0;i<=p.getProbabilities().length;i++){
+                if(var == null)
+                    throw new Exception("var is null for " + p);
+
+                if(var.getDomain() == null)
+                    throw new Exception("var.getDomain() is null");
+
                 if(i>0 && i%var.getDomain().size()==0){
+//                    System.out.println("sum: "+sum);
+//                    System.out.println("i: "+i);
+//                    System.out.println("var.getDomain().size(): "+var.getDomain().size());
                     if(Math.abs(1-sum) > 0){
                         if(Math.abs(1-sum) > error)
-                            throw new Exception("Row "+ ((i/var.getDomain().size()) + 1) +" of CPT does not sum to 1.0 with error equals to "+error);
+                            throw new Exception("Row "+ ((i/var.getDomain().size()) + 1) +" of CPT does not sum to 1.0 with error equals to "+error + " (sum to "+sum+") " + p);
                         else{
                             p.getProbabilities()[i-1]+=(1-sum);
                         }
@@ -200,8 +219,11 @@ public abstract class BNReader {
                         sum = sum * 1000;
                         sum += (p.getProbabilities()[i] * 1000);
                         sum = sum / 1000;
-                    } else
+//                        System.out.println("p.getProbabilities()["+i+"]: "+p.getProbabilities()[i]);
+                    } else{
+//                        System.out.println("p.getProbabilities()["+i+"]: "+p.getProbabilities()[i]);
                         sum += p.getProbabilities()[i];
+                    }
                 }
             }
         }

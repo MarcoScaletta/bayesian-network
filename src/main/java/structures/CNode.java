@@ -1,3 +1,5 @@
+package structures;
+
 import aima.core.probability.RandomVariable;
 import aima.core.probability.bayes.Node;
 import aima.core.probability.bayes.impl.FullCPTNode;
@@ -7,17 +9,19 @@ import java.util.*;
 
 public class CNode extends FullCPTNode implements Comparable<CNode>{
 
+
+    private String name;
     private Set<CNode> connections = new HashSet<CNode>();
     private Set<Pair<CNode,CNode>> fillInEdge;
     private int fillInEdgeNum;
 
     public CNode(RandomVariable var, double[] distribution) {
         this(var, distribution, (Node[])null);
-
     }
 
     public CNode(RandomVariable var, double[] values, Node... parents) {
         super(var, values, parents);
+        this.name = var.getName();
     }
 
 
@@ -26,7 +30,6 @@ public class CNode extends FullCPTNode implements Comparable<CNode>{
             connections.add((CNode)n);
         for (Node n : this.getParents())
             connections.add((CNode)n);
-
     }
 
 
@@ -62,16 +65,20 @@ public class CNode extends FullCPTNode implements Comparable<CNode>{
         return connections;
     }
 
-    public Set<CNode> getFamily(){
-        Set<CNode> family = new HashSet<>();
-        family.add(this);
-        family.addAll((Set<CNode>)(Set<?>)this.getParents());
+    public Set<RandomVariable> getFamily(){
+        Set<RandomVariable> family = new HashSet<>();
+        family.add(this.getRandomVariable());
+        for (Node node : this.getParents())
+            family.add(node.getRandomVariable());
         return family;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
-    public String toString() {
-        return this.getRandomVariable().getName();
+    public String toString() {return this.name;
     }
 
     @Override
