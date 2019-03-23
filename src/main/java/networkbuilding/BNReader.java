@@ -188,8 +188,8 @@ public abstract class BNReader {
             sum = 0;
             var = variableHashMap.get(p.getCondVar());
 
-            System.out.println("p: "+p);
-            System.out.println("p.probs: "+ Arrays.toString(p.getProbabilities()));
+//            System.out.println("p: "+p);
+//            System.out.println("p.probs: "+ Arrays.toString(p.getProbabilities()));
             for (int i=0;i<=p.getProbabilities().length;i++){
                 if(var == null)
                     throw new Exception("var is null for " + p);

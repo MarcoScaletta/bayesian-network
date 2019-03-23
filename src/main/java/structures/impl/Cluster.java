@@ -18,6 +18,10 @@ public class Cluster implements ElTreeNode {
 
     private Factor factor;
 
+    private Factor message;
+
+    private ElTreeNode messageTo;
+
 
     public Cluster(Set<RandomVariable> allVars){
         this.vars = new HashSet<>(allVars);
@@ -57,6 +61,22 @@ public class Cluster implements ElTreeNode {
 
     public void setFactor(Factor factor) {
         this.factor = factor;
+    }
+
+    public Factor getMessage() {
+        return message;
+    }
+
+    public void setMessage(Factor message) {
+        this.message = message;
+    }
+
+    public ElTreeNode getMessageTo() {
+        return messageTo;
+    }
+
+    public void setMessageTo(ElTreeNode messageTo) {
+        this.messageTo = messageTo;
     }
 
     @Override

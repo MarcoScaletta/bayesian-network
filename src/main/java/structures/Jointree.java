@@ -5,8 +5,10 @@ import aima.core.probability.RandomVariable;
 import aima.core.probability.bayes.BayesianNetwork;
 import aima.core.probability.bayes.impl.CPT;
 import aima.core.probability.util.ProbabilityTable;
+import algorithm.BookAlgorithm;
 import javafx.util.Pair;
 import structures.CNode;
+import structures.elimination_tree.ElTreeNode;
 import structures.impl.Cluster;
 
 import java.util.*;
@@ -31,6 +33,7 @@ public class Jointree {
         fillEdge(cNodesArray);
 
         createJointree(cNodesArray);
+        BookAlgorithm.neighboursControl(new ArrayList<>(clusters));
 
     }
 
@@ -64,7 +67,7 @@ public class Jointree {
 
         CNode[] cNodesArray =  cNodes.toArray(new CNode[cNodes.size()]);
         Arrays.sort(cNodesArray);
-//        System.out.println("Elimination order:"+Arrays.toString(cNodesArray));
+        System.out.println("Elimination order:"+Arrays.toString(cNodesArray));
         return cNodesArray;
     }
 
@@ -135,7 +138,7 @@ public class Jointree {
             connected.add(tmp);
         }
         for(Cluster cI : reversedList){
-            //System.out.println("structures.impl.Cluster:"+cI);
+            System.out.println("structures.impl.Cluster:"+cI);
             inserted = false;
             if(!connected.contains(cI)){
                 Iterator<Cluster> it = connected.iterator();

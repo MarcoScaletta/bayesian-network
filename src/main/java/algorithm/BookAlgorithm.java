@@ -5,9 +5,10 @@ import aima.core.probability.RandomVariable;
 import aima.core.probability.bayes.BayesianNetwork;
 import aima.core.probability.bayes.ConditionalProbabilityTable;
 import aima.core.probability.bayes.FiniteNode;
-import aima.core.probability.bayes.Node;
+import structures.Jointree;
 import structures.elimination_tree.ElTreeNode;
 import javafx.util.Pair;
+import structures.impl.Cluster;
 
 import java.util.*;
 
@@ -60,7 +61,6 @@ public class BookAlgorithm {
         Pair<ElTreeNode,ElTreeNode> pairNINJ;
         Set<RandomVariable> v;
         Factor sumOut,phiI,phiJ;
-        Pair<ElTreeNode,List<ElTreeNode>> rootLeaves;
 
 //        try {
         root = rootForVariables(nodes,leaves,q);
@@ -140,15 +140,55 @@ public class BookAlgorithm {
                 nJ.setFactor(project);
             else
                 nJ.setFactor(nJ.getFactor().pointwiseProduct(project));
-
-
-
-
-
         }
         return project(root.getFactor(),q);
     }
 
+    /**
+     *
+     * @param g jointree
+     * @param q variables to be jointed
+     * @return
+     * @throws Exception
+     */
+    @SuppressWarnings("Duplicates")
+    public static Factor factorEliminationMex(Jointree g,
+                                              RandomVariable... q) throws Exception{
+        List<Cluster> clusters = new ArrayList<>(g.getClusters());
+        return project(pushCollect(rootForVariables(clusters,q)),q);
+    }
+
+    public static void neighboursControl(Collection<ElTreeNode> nodes) throws Exception {
+        for (ElTreeNode e : nodes)
+            for (ElTreeNode n : e.getNeighbours())
+                if(!n.getNeighbours().contains(e))
+                    throw new Exception("error neighbour missing");
+    }
+
+    private static Factor pushCollect(Cluster root){
+        return pushCollectRec(root,null);
+    }
+
+
+    @SuppressWarnings("Duplicates")
+    private static Factor pushCollectRec(Cluster from, Cluster to){
+
+        if(to==null || !to.equals(from.getMessageTo())) {
+            from.setMessage(from.getFactor());
+
+            from.setMessageTo(to);
+            for (ElTreeNode node : from.getNeighbours()){
+
+                System.out.println("OP");
+                if (!node.equals(to))
+                    from.setMessage(from.getMessage().pointwiseProduct(pushCollectRec((Cluster) node, from)));
+            }
+            if (to != null)
+                from.setMessage(project(from.getMessage(), from.getSeparators(to).toArray(new RandomVariable[0])));
+        }
+
+        return from.getMessage();
+    }
 
     private static Pair<ElTreeNode,ElTreeNode> returnNINJ(List<ElTreeNode> leaves, ElTreeNode root) throws Exception {
         ElTreeNode nI,nJ;
@@ -183,6 +223,28 @@ public class BookAlgorithm {
     }
 
     // PRIVATE METHODS
+
+    private static Cluster rootForVariables(List<Cluster> nodes,
+                                               RandomVariable... q) throws Exception {
+        Cluster root = null;
+        for (Cluster node : nodes) {
+
+            if(node.getFactor() != null){
+                if(root==null && node.getFactor().getArgumentVariables().containsAll(Arrays.asList(q))){
+                    root = node;
+                }
+                //System.out.println("inner:"+node +"-->" + node.getNeighbours().size());
+                if(node.getNeighbours().size() == 0)
+                    throw new Exception("Node"+node.getFactor().getArgumentVariables()+" has no neighbour");
+                else if(node.getNeighbours().size() == 1){
+                }
+            }
+
+        }
+        if(root == null)
+            throw new Exception("There isn't a node that contains"+ Arrays.toString(q));
+        return root;
+    }
 
     private static ElTreeNode rootForVariables(List<ElTreeNode> nodes,
                                                List<ElTreeNode> leaves,
