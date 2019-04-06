@@ -4,7 +4,9 @@ import aima.core.probability.Factor;
 import aima.core.probability.RandomVariable;
 import structures.elimination_tree.ElTreeNode;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class Cluster implements ElTreeNode {
@@ -20,20 +22,20 @@ public class Cluster implements ElTreeNode {
 
     private Factor message;
 
-    private ElTreeNode messageTo;
-
+    private Map<Cluster, Factor> mexFrom;
 
     public Cluster(Set<RandomVariable> allVars){
         this.vars = new HashSet<>(allVars);
         this.neighbours = new HashSet<>();
         this.deleted = new HashSet<>();
+        this.mexFrom = new HashMap<>();
     }
 
     public Set<RandomVariable> getVars() {
         return vars;
     }
 
-    public Set<RandomVariable> getIntersection(Cluster that){
+    private Set<RandomVariable> getIntersection(Cluster that){
         Set<RandomVariable> tmp = new HashSet<>(this.vars);
         tmp.retainAll(that.vars);
         return tmp;
@@ -63,20 +65,16 @@ public class Cluster implements ElTreeNode {
         this.factor = factor;
     }
 
-    public Factor getMessage() {
+    Factor getMessage() {
         return message;
     }
 
-    public void setMessage(Factor message) {
+    void setMessage(Factor message) {
         this.message = message;
     }
 
-    public ElTreeNode getMessageTo() {
-        return messageTo;
-    }
-
-    public void setMessageTo(ElTreeNode messageTo) {
-        this.messageTo = messageTo;
+    Map<Cluster, Factor> getMexFrom() {
+        return mexFrom;
     }
 
     @Override

@@ -42,7 +42,7 @@ public class BookAlgorithm {
             for(Factor f :s)
                 v.removeAll(f.getArgumentVariables());
 
-            sumOut = fI.sumOut(v.toArray(new RandomVariable[v.size()]));
+            sumOut = fI.sumOut(v.toArray(new RandomVariable[0]));
             s.set(0, s.get(0).pointwiseProduct(sumOut));
         }
         return project(s.get(0),q);
@@ -53,20 +53,17 @@ public class BookAlgorithm {
      *
      * @return prior marginal Pr(Q)
      */
+    @SuppressWarnings("Duplicates")
     public static Factor factorElimination2(BayesianNetwork bn,
                                             List<ElTreeNode> nodes,
                                             RandomVariable... q) throws Exception {
         List<ElTreeNode> leaves = new ArrayList<>();
-        ElTreeNode nI,nJ,root = null;
+        ElTreeNode nI,nJ,root;
         Pair<ElTreeNode,ElTreeNode> pairNINJ;
         Set<RandomVariable> v;
-        Factor sumOut,phiI,phiJ;
+        Factor sumOut,phiI;
 
-//        try {
         root = rootForVariables(nodes,leaves,q);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
 
         while(nodes.size() > 1){
             pairNINJ = returnNINJ(leaves,root);
@@ -80,7 +77,7 @@ public class BookAlgorithm {
                 if(node.getFactor() !=null)
                     v.removeAll(node.getFactor().getArgumentVariables());
             }
-            sumOut = phiI.sumOut(v.toArray(new RandomVariable[v.size()]));
+            sumOut = phiI.sumOut(v.toArray(new RandomVariable[0]));
 
             if(nJ.getFactor() ==null)
                 nJ.setFactor(sumOut);
@@ -95,11 +92,11 @@ public class BookAlgorithm {
 
 
     /**
-     * Implementing algorithm 9 FE2(N,Q,(T,Phi),r)
+     * Implementing algorithm 9 FE3(N,Q,(T,Phi),r)
      *
      * @return prior marginal Pr(Q)
      */
-
+    @SuppressWarnings("Duplicates")
     public static Factor factorElimination3(BayesianNetwork bn,
                                             List<ElTreeNode> nodes,
                                             RandomVariable... q) throws Exception {
@@ -111,16 +108,11 @@ public class BookAlgorithm {
 
         List<ElTreeNode> leaves = new ArrayList<>();
         Set<ElTreeNode> setNodes = new HashSet<>(nodes);
-        ElTreeNode nI,nJ, root = null;
+        ElTreeNode nI,nJ, root;
         Pair<ElTreeNode,ElTreeNode> pairNINJ;
-        Factor sumOut,phiI,phiJ,project;
-        Pair<ElTreeNode,List<ElTreeNode>> rootLeaves;
+        Factor phiI,project;
 
-//        try {
         root = rootForVariables(nodes,leaves,q);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
 
 
 
@@ -132,9 +124,8 @@ public class BookAlgorithm {
 
             nodes.remove(nI);
             phiI = nI.getFactor();
-            phiJ = nJ.getFactor();
             project = project(phiI,nI.getSeparators(nJ).toArray(
-                    new RandomVariable[nI.getSeparators(nJ).size()]));
+                    new RandomVariable[0]));
 
             if(nJ.getFactor() == null)
                 nJ.setFactor(project);
@@ -144,50 +135,19 @@ public class BookAlgorithm {
         return project(root.getFactor(),q);
     }
 
-    /**
-     *
-     * @param g jointree
-     * @param q variables to be jointed
-     * @return
-     * @throws Exception
-     */
-    @SuppressWarnings("Duplicates")
-    public static Factor factorEliminationMex(Jointree g,
-                                              RandomVariable... q) throws Exception{
-        List<Cluster> clusters = new ArrayList<>(g.getClusters());
-        return project(pushCollect(rootForVariables(clusters,q)),q);
+
+
+    public static void printFactor(Factor f){
+        f.iterateOver((v,p)->System.out.println("P(X="+v+")"+p));
     }
+
+
 
     public static void neighboursControl(Collection<ElTreeNode> nodes) throws Exception {
         for (ElTreeNode e : nodes)
             for (ElTreeNode n : e.getNeighbours())
                 if(!n.getNeighbours().contains(e))
                     throw new Exception("error neighbour missing");
-    }
-
-    private static Factor pushCollect(Cluster root){
-        return pushCollectRec(root,null);
-    }
-
-
-    @SuppressWarnings("Duplicates")
-    private static Factor pushCollectRec(Cluster from, Cluster to){
-
-        if(to==null || !to.equals(from.getMessageTo())) {
-            from.setMessage(from.getFactor());
-
-            from.setMessageTo(to);
-            for (ElTreeNode node : from.getNeighbours()){
-
-                System.out.println("OP");
-                if (!node.equals(to))
-                    from.setMessage(from.getMessage().pointwiseProduct(pushCollectRec((Cluster) node, from)));
-            }
-            if (to != null)
-                from.setMessage(project(from.getMessage(), from.getSeparators(to).toArray(new RandomVariable[0])));
-        }
-
-        return from.getMessage();
     }
 
     private static Pair<ElTreeNode,ElTreeNode> returnNINJ(List<ElTreeNode> leaves, ElTreeNode root) throws Exception {
@@ -219,13 +179,13 @@ public class BookAlgorithm {
         Set<RandomVariable> vars = new HashSet<>(factor.getArgumentVariables());
         for(RandomVariable r : variables)
             vars.remove(r);
-        return factor.sumOut(vars.toArray(new RandomVariable[vars.size()]));
+        return factor.sumOut(vars.toArray(new RandomVariable[0]));
     }
 
     // PRIVATE METHODS
 
-    private static Cluster rootForVariables(List<Cluster> nodes,
-                                               RandomVariable... q) throws Exception {
+    public static Cluster rootForVariables(Collection<Cluster> nodes,
+                                            RandomVariable... q) throws Exception {
         Cluster root = null;
         for (Cluster node : nodes) {
 
@@ -236,8 +196,6 @@ public class BookAlgorithm {
                 //System.out.println("inner:"+node +"-->" + node.getNeighbours().size());
                 if(node.getNeighbours().size() == 0)
                     throw new Exception("Node"+node.getFactor().getArgumentVariables()+" has no neighbour");
-                else if(node.getNeighbours().size() == 1){
-                }
             }
 
         }

@@ -1,14 +1,10 @@
 package structures;
 
-import aima.core.probability.Factor;
 import aima.core.probability.RandomVariable;
 import aima.core.probability.bayes.BayesianNetwork;
-import aima.core.probability.bayes.impl.CPT;
-import aima.core.probability.util.ProbabilityTable;
+import aima.core.probability.proposition.AssignmentProposition;
 import algorithm.BookAlgorithm;
 import javafx.util.Pair;
-import structures.CNode;
-import structures.elimination_tree.ElTreeNode;
 import structures.impl.Cluster;
 
 import java.util.*;
@@ -21,7 +17,6 @@ public class Jointree {
     private BayesianNetwork bn;
 
     private HashMap<RandomVariable,Cluster> varAssignment;
-
 
 
     public Jointree(BayesianNetwork bn) throws Exception {
@@ -65,9 +60,8 @@ public class Jointree {
         for(CNode cNode : cNodes)
             cNode.updateFillInEdge();
 
-        CNode[] cNodesArray =  cNodes.toArray(new CNode[cNodes.size()]);
+        CNode[] cNodesArray =  cNodes.toArray(new CNode[0]);
         Arrays.sort(cNodesArray);
-        System.out.println("Elimination order:"+Arrays.toString(cNodesArray));
         return cNodesArray;
     }
 
@@ -138,7 +132,6 @@ public class Jointree {
             connected.add(tmp);
         }
         for(Cluster cI : reversedList){
-            System.out.println("structures.impl.Cluster:"+cI);
             inserted = false;
             if(!connected.contains(cI)){
                 Iterator<Cluster> it = connected.iterator();
@@ -166,28 +159,7 @@ public class Jointree {
 
         Iterator<Cluster> clusterIterator;
         CNode node;
-        Set<RandomVariable> addedFamily = new HashSet<>();
-        Cluster cluster = null;
-        Factor clusterFactor;
-
-        boolean containFamily;
-
-//        for (Cluster c : clusters){
-//            clusterFactor = null;
-//            for (RandomVariable r : c.getVars()){
-//                if(!addedFamily.contains(r)){
-//                    node = (CNode)bn.getNode(r);
-//                    containFamily = cluster.getVars().containsAll(node.getFamily());
-//                    if(containFamily){
-//                        addedFamily.add(r);
-//                        if(clusterFactor == null)
-//                            clusterFactor = node.getCPT().getFactorFor();
-//                        else
-//                            clusterFactor = clusterFactor.pointwiseProduct(
-//                                    node.getCPT().getFactorFor());
-//                    }
-//                }
-//            }
+        Cluster cluster;
 
         for(RandomVariable var : bn.getVariablesInTopologicalOrder()){
 
@@ -198,31 +170,25 @@ public class Jointree {
                 cluster = clusterIterator.next();
                 if(cluster.getVars().containsAll(node.getFamily())){
                     foundCluster = true;
-                    //System.out.println("Insert var: " + var.getName());
                     varAssignment.put(node.getRandomVariable(),cluster);
-//                    System.out.println("\nFactor in "+cluster.toString()+": " +cluster.getFactor());
                     if(node.getCPT().getFactorFor() == null)
                         throw new Exception("node.getCPT().getFactorFor()");
                     cluster.setFactor(
                             cluster.getFactor() == null ?
                                     node.getCPT().getFactorFor() :
                                     cluster.getFactor().pointwiseProduct(node.getCPT().getFactorFor()));
-//                    System.out.println("Factor of "+node.getRandomVariable().getName()+": " +node.getCPT().getFactorFor());
-//                    System.out.println("Factor in "+cluster.toString()+": " +cluster.getFactor());
 
                 }
             }
         }
 
 
-//        System.out.println(varAssignment);
     }
 
     private Set<RandomVariable> getAllVarsFromNodes(Set<CNode> nodes){
         Set<RandomVariable> vars = new HashSet<>();
         for (CNode n : nodes)
             vars.add(n.getRandomVariable());
-//        System.out.println(Arrays.toString(vars.toArray()));
         return vars;
     }
 

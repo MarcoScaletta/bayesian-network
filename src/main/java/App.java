@@ -1,19 +1,18 @@
+import aima.core.probability.Factor;
 import aima.core.probability.RandomVariable;
 import aima.core.probability.bayes.BayesianNetwork;
 import aima.core.probability.bayes.FiniteNode;
 import aima.core.probability.bayes.Node;
 import aima.core.probability.bayes.exact.EliminationAsk;
-import aima.core.probability.bayes.exact.EnumerationAsk;
 import aima.core.probability.bayes.impl.BayesNet;
-import aima.core.probability.domain.BooleanDomain;
+import aima.core.probability.domain.*;
 import aima.core.probability.proposition.AssignmentProposition;
+import aima.core.probability.util.ProbabilityTable;
 import aima.core.probability.util.RandVar;
 import algorithm.BookAlgorithm;
-import com.google.common.collect.Sets;
+import structures.impl.JointreeAsk;
 import javafx.util.Pair;
 import networkbuilding.BNReader;
-import networkbuilding.ProbabilityParser;
-import networkbuilding.VariableParser;
 import structures.CNode;
 import structures.Jointree;
 import structures.impl.Cluster;
@@ -21,10 +20,7 @@ import structures.impl.Cluster;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.math.BigDecimal;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class App {
 
@@ -33,107 +29,61 @@ public class App {
 
     public static void main(String[] args) throws Exception {
 
-        String s ="(AIDS_early) 0.0, 1.0;";
 
-        System.out.println(s.matches(ProbabilityParser.PROB_LINE));
-        BayesianNetwork bn = new BNReader("earthquake.bif") {
+        BayesianNetwork bn = new BNReader("pathfinder.bif") {
 
             protected Node nodeCreation(RandomVariable var, double[] probs, Node... parents) {
-                //System.out.println(Arrays.toString(probs));
                 return new CNode(var,probs,parents);
             }
         }.getBayesianNetwork();
 
-        Jointree g = new Jointree(bn);
 
-        RandomVariable v = bn.getVariablesInTopologicalOrder().get(2);
-        System.out.println("Pr(" + v + ")\n" + BookAlgorithm.factorElimination2(bn,new ArrayList<>(g.getClusters()), v));
-        g = new Jointree(bn);
-        System.out.println("Pr(" + v + ")\n" + BookAlgorithm.factorEliminationMex(g, v));
+        RandomVariable var1 = bn.getVariablesInTopologicalOrder().get(1);
+        AssignmentProposition [] a1 =
+                new AssignmentProposition[] {new AssignmentProposition(var1,((FiniteDomain)var1.getDomain()).getValueAt(0))};
+        Jointree j2 = new Jointree(bn);
+        printClusters(j2);
+        for (Cluster c :j2.getClusters()){
+            System.out.println(c);
+            System.out.println(c.getNeighbours());
+            System.out.println("Factor");
+            BookAlgorithm.printFactor(c.getFactor());
+            System.out.println();
+        }
 
+        Factor jAlgo,ask;
+        boolean found;
+        int error = 0;
 
-        v = bn.getVariablesInTopologicalOrder().get(4);
-        //System.out.println("Pr(" + v + ")\n" + BookAlgorithm.factorElimination2(bn,new ArrayList<>(g.getClusters()), v));
-        //g = new Jointree(bn);
-        System.out.println("Pr(" + v + ")\n" + BookAlgorithm.factorEliminationMex(g,  v));
-//        setMap(bn);
-//        printNetwork(bn);
-//        printGraph(g);
-        printClusters(g);
-//        g = new Jointree(bn);
-//        for (RandomVariable v : bn.getVariablesInTopologicalOrder()) {
-//            g = new Jointree(bn);
-//            System.out.println("Pr(" + v + ")\n" + BookAlgorithm.factorElimination2(bn,new ArrayList<>(g.getClusters()), v));
-//            System.out.println(new EliminationAsk().ask(new RandomVariable[]{v}, new AssignmentProposition[]{}, bn));
-//        }
+        JointreeAsk jAsk = new JointreeAsk(j2,a1);
+        for (RandomVariable r : bn.getVariablesInTopologicalOrder()){
+            if(!r.equals(var1)) {
+                System.out.println("\nSTART:");
+                jAlgo =
+                        (ProbabilityTable)  jAsk.ask(new RandomVariable[]{r}, a1, bn);
+                ask = (ProbabilityTable) new EliminationAsk().ask(new RandomVariable[]{r}, a1, bn);
+                System.out.println("MioVal: " + jAlgo);
+                System.out.println("Atteso: " + ask);
+                System.out.println("Calculating error on " + r);
+                found= false;
+                for (int i = 0; i < jAlgo.getValues().length && !found; i++) {
+                    if(Math.abs(jAlgo.getValues()[i]-ask.getValues()[i]) > 0.00000000001){
+                        found = true;
+                        error++;
+                    }
+                }
+            }
+        }
+        System.out.println("Total errors: " + error);
+        System.out.println("FINISH");
 
-
-//
-//
-//
-//        for (RandomVariable v : bn.getVariablesInTopologicalOrder()) {
-//            long t;
-//            g = new Jointree(bn);
-//            System.out.println("\nPr(" + v + ")");
-//            try {
-//                t = System.currentTimeMillis();
-//
-//                System.out.println(BookAlgorithm.factorElimination3(bn, new ArrayList<>(g.getClusters()), v));
-////                System.out.println("Time (millis): " + (System.currentTimeMillis() - t));
-//                System.out.println(new EnumerationAsk().ask(new RandomVariable[]{v}, new AssignmentProposition[]{}, bn));
-//
-//            } catch (Exception ex) {
-//                ex.printStackTrace();
-//            }
-//
-//
-//            g = new Jointree(bn);
-//
-//            t = System.currentTimeMillis();
-//            System.out.println(new EliminationAsk().ask(new RandomVariable[]{v}, new AssignmentProposition[]{}, bn));
-//            System.out.println("Time (millis): " + (System.currentTimeMillis()-t));
-//
-//            g = new Jointree(bn);
-//
-//            try {
-//
-//                t = System.currentTimeMillis();
-//                System.out.println(BookAlgorithm.factorElimination3(bn, new ArrayList<>(g.getClusters()), v));
-//                System.out.println("Time (millis): " + (System.currentTimeMillis()-t));
-//            } catch (Exception ex) {
-//                ex.printStackTrace();
-//            }
-//        }
-//
-//
-//
-//
-//        RandomVariable a = new RandVar("A",new BooleanDomain());
-//        RandomVariable b = new RandVar("B",new BooleanDomain());
-//        Pair<BayesianNetwork,AssignmentProposition[]> pair = myNetwork1();
-//
-//        myNetwork();
-//
-//
-//        structures.Jointree g = new structures.Jointree(pair.getKey());
-//
-//        printNetwork(pair.getKey());
-//        printGraph(g);
-//        printClusters(g);
-//        algorithm.ClusterAsk.getPriorMarginal(
-//                pair.getValue(),
-//                pair.getKey(),
-//                g);
-//    }
     }
 
 
     private static void setMap(BayesianNetwork bn){
         List<RandomVariable> vars = bn.getVariablesInTopologicalOrder();
-        int numChar;
         String subString = "";
         for(RandomVariable r : vars){
-            numChar = 1;
             for(RandomVariable var : vars){
                 if(!var.equals(r))
                     for (int i = 0; i < r.getName().length() &&
@@ -144,7 +94,6 @@ public class App {
                     }
             }
             map.put(r.getName(),subString);
-            //System.out.println(subString);
         }
     }
 
@@ -162,7 +111,7 @@ public class App {
 
     private static void printGraph(Jointree g) throws FileNotFoundException {
         String line = "";
-        RandomVariable [] vars = g.getBn().getVariablesInTopologicalOrder().toArray(new RandomVariable[g.getBn().getVariablesInTopologicalOrder().size()]);
+        RandomVariable [] vars = g.getBn().getVariablesInTopologicalOrder().toArray(new RandomVariable[0]);
         CNode cI,cJ;
         for (int i = 0; i < vars.length-1; i++) {
             cI = (CNode) g.getBn().getNode(vars[i]);
@@ -181,16 +130,11 @@ public class App {
 
     private static void printClusters(Jointree g) throws FileNotFoundException {
         String line = "";
-        Cluster [] clusters = g.getClusters().toArray(new Cluster[g.getClusters().size()]);
+        Cluster [] clusters = g.getClusters().toArray(new Cluster[0]);
         for (int i = 0; i < clusters.length-1; i++) {
             for (int j = i+1; j < clusters.length; j++) {
                 if(clusters[j].getNeighbours().contains(clusters[i]))
                     line+=clusters[i]+","+clusters[j]+"\n";
-                    /*for (structures.CNode c : clusters[i].getMainCNodes()){
-                        if(!c.getFactor().equals(""))
-                            line+=clusters[i]+","+c.getFactor()+"\n";
-                        line+=clusters[i]+","+c.getEvidenceIndicator()+"\n";
-                    }*/
             }
         }
         printToFile(line,"clusters.csv");
@@ -202,7 +146,7 @@ public class App {
         pw.close();
     }
 
-    public static RandomVariable boolRandVar(String name){
+    private static RandomVariable boolRandVar(String name){
         return new RandVar(name, new BooleanDomain());
     }
 
@@ -226,8 +170,8 @@ public class App {
 
         @SuppressWarnings("unused")
         FiniteNode g = boolNode("G",f);
-        assigments = assigmentSet.toArray(new AssignmentProposition[assigmentSet.size()]);
-        return new Pair<>((BayesianNetwork) new BayesNet(a,b,f),assigments);
+        assigments = assigmentSet.toArray(new AssignmentProposition[0]);
+        return new Pair<>(new BayesNet(a,b,f),assigments);
     }
 
     private static FiniteNode boolNode(String name, Node... parents){
@@ -262,8 +206,8 @@ public class App {
         AssignmentProposition[] assigments;
         Set<AssignmentProposition> assigmentSet = new HashSet<>();
         assigmentSet.add(new AssignmentProposition(a.getRandomVariable(), false));
-        assigments = assigmentSet.toArray(new AssignmentProposition[assigmentSet.size()]);
-        return new Pair<>((BayesianNetwork) new BayesNet(a),assigments);
+        assigments = assigmentSet.toArray(new AssignmentProposition[0]);
+        return new Pair<>(new BayesNet(a),assigments);
     }
 
 
