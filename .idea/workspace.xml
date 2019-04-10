@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="74d0afb6-706b-4bf9-be04-3a89c2d99e82" name="Default" comment="Implemented Correct Algorithm - Create &quot;JointreeAsk&quot; class - Cleaned code">
-      <change afterPath="$PROJECT_DIR$/src/main/java/structures/impl/JointreeAsk.java" afterDir="false" />
+    <list default="true" id="74d0afb6-706b-4bf9-be04-3a89c2d99e82" name="Default" comment="Fixed .bif parser - Created logger - Cleaned code">
+      <change afterPath="$PROJECT_DIR$/src/main/java/logger/Logger.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/networkbuilding/probparser/BifProbabilityParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/algorithm/BookAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/algorithm/BookAlgorithm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/structures/Jointree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/structures/Jointree.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/structures/impl/Cluster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/structures/impl/Cluster.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/networkbuilding/BNReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/networkbuilding/bnparser/BifBNReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/networkbuilding/ProbabilityParser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/networkbuilding/VariableParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/networkbuilding/varparser/BifVariableParser.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -40,109 +41,78 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/algorithm/BookAlgorithm.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
-              <caret line="190" column="10" selection-start-line="190" selection-start-column="4" selection-end-line="190" selection-end-column="10" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1682#1713#0" expanded="true" />
-                <element signature="e#3152#3183#0" expanded="true" />
-                <element signature="e#8715#8716#0" expanded="true" />
-                <element signature="e#8787#8788#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/structures/Jointree.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2">
-              <caret line="90" column="8" selection-start-line="90" selection-start-column="8" selection-end-line="90" selection-end-column="8" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#fillEdge#0;class#Jointree#0" />
-                <element signature="method#getAllVarsFromClusters#0;class#Jointree#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/structures/impl/Cluster.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
-              <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/App.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="116">
-              <caret line="148" column="11" selection-start-line="148" selection-start-column="11" selection-end-line="148" selection-end-column="11" />
+            <state relative-caret-position="265">
+              <caret line="57" column="66" lean-forward="true" selection-start-line="57" selection-start-column="66" selection-end-line="57" selection-end-column="66" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#8477#8478#0" expanded="true" />
-                <element signature="e#8538#8539#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/structures/impl/JointreeAsk.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/networkbuilding/probparser/BifProbabilityParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+            <state relative-caret-position="160">
+              <caret line="159" column="13" lean-forward="true" selection-start-line="159" selection-start-column="13" selection-end-line="159" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#819#820#0" expanded="true" />
-                <element signature="e#878#879#0" expanded="true" />
-                <element signature="e#4714#4715#0" expanded="true" />
-                <element signature="e#4748#4749#0" expanded="true" />
+                <element signature="e#5161#5162#0" expanded="true" />
+                <element signature="e#5191#5192#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/net">
+        <entry file="file://$PROJECT_DIR$/src/main/java/logger/Logger.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="13" column="8" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="16" />
+            <state relative-caret-position="38">
+              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+              <folding>
+                <element signature="e#152#153#0" expanded="true" />
+                <element signature="e#205#206#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cancer.bif">
+        <entry file="file://$PROJECT_DIR$/src/main/java/networkbuilding/varparser/BifVariableParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="27" column="27" selection-start-line="27" selection-start-column="27" selection-end-line="27" selection-end-column="27" />
+            <state relative-caret-position="-496">
+              <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/clusters.csv">
+        <entry file="file://$PROJECT_DIR$/src/main/java/algorithm/BookAlgorithm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="88" column="43" selection-start-line="88" selection-start-column="43" selection-end-line="88" selection-end-column="43" />
+            <state relative-caret-position="139">
+              <caret line="138" lean-forward="true" selection-start-line="138" selection-end-line="141" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/file">
+        <entry file="file://$PROJECT_DIR$/src/main/java/networkbuilding/bnparser/BifBNReader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="57">
-              <caret line="3" column="17" selection-start-line="3" selection-start-column="17" selection-end-line="3" selection-end-column="17" />
+            <state relative-caret-position="208">
+              <caret line="67" column="19" lean-forward="true" selection-start-line="67" selection-start-column="19" selection-end-line="67" selection-end-column="19" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#8717#8718#0" expanded="true" />
+                <element signature="e#8755#8756#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -159,22 +129,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>F15</find>
-      <find>F23</find>
-      <find>F26</find>
-      <find>F33</find>
-      <find>factor</find>
-      <find>Syste</find>
-      <find>erk</find>
-      <find>F53</find>
-      <find>F56</find>
-      <find>F2</find>
-      <find>F2</find>
-      <find>akt</find>
-      <find>E</find>
-      <find>E</find>
-      <find>print</find>
-      <find>getMex</find>
       <find>setN</find>
       <find>push</find>
       <find>equa</find>
@@ -185,10 +139,26 @@
       <find>inser</find>
       <find>proj</find>
       <find>insert</find>
-      <find>Sy</find>
       <find>sep</find>
       <find>root</find>
       <find>separators</find>
+      <find>prob</find>
+      <find>probability</find>
+      <find>For</find>
+      <find>set</find>
+      <find>se</find>
+      <find>GLH_plasma_cell_type</find>
+      <find>--</find>
+      <find>GLH_plasma_cell_</find>
+      <find>type</find>
+      <find>Syst</find>
+      <find>S</find>
+      <find>Sy</find>
+      <find>parsed</find>
+      <find>System.out</find>
+      <find>err</find>
+      <find>printFa</find>
+      <find>printFactor</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -221,17 +191,25 @@
         <option value="$PROJECT_DIR$/src/main/java/structures/elimination_tree/ElTreeNode.java" />
         <option value="$PROJECT_DIR$/clusters.csv" />
         <option value="$PROJECT_DIR$/src/main/java/structures/CNode.java" />
-        <option value="$PROJECT_DIR$/src/main/java/networkbuilding/VariableParser.java" />
-        <option value="$PROJECT_DIR$/src/main/java/networkbuilding/ProbabilityParser.java" />
-        <option value="$PROJECT_DIR$/src/main/java/networkbuilding/BNReader.java" />
         <option value="$PROJECT_DIR$/src/main/java/algorithm/aa" />
         <option value="$PROJECT_DIR$/file" />
         <option value="$PROJECT_DIR$/net" />
-        <option value="$PROJECT_DIR$/src/main/java/structures/impl/Cluster.java" />
         <option value="$PROJECT_DIR$/src/main/java/structures/Jointree.java" />
-        <option value="$PROJECT_DIR$/src/main/java/App.java" />
         <option value="$PROJECT_DIR$/src/main/java/algorithm/JointreeAsk.java" />
+        <option value="$PROJECT_DIR$/src/main/java/structures/impl/Cluster.java" />
         <option value="$PROJECT_DIR$/src/main/java/algorithm/BookAlgorithm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/structures/impl/JointreeAsk.java" />
+        <option value="$PROJECT_DIR$/src/main/java/networkbuilding/VariableParser.java" />
+        <option value="$PROJECT_DIR$/earthquake.bif" />
+        <option value="$PROJECT_DIR$/src/main/java/networkbuilding/BNReader.java" />
+        <option value="$PROJECT_DIR$/src/main/java/networkbuilding/ProbabilityParser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/networkbuilding/BifBNReader.java" />
+        <option value="$PROJECT_DIR$/src/main/java/networkbuilding/BifProbabilityParser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/App.java" />
+        <option value="$PROJECT_DIR$/src/main/java/networkbuilding/Logger.java" />
+        <option value="$PROJECT_DIR$/src/main/java/logger/Logger.java" />
+        <option value="$PROJECT_DIR$/src/main/java/networkbuilding/bnparser/BifBNReader.java" />
+        <option value="$PROJECT_DIR$/src/main/java/networkbuilding/probparser/BifProbabilityParser.java" />
       </list>
     </option>
   </component>
@@ -247,9 +225,9 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-7" />
-    <option name="width" value="974" />
-    <option name="height" value="1047" />
+    <option name="x" value="-8" />
+    <option name="width" value="976" />
+    <option name="height" value="1048" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -257,6 +235,7 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -309,6 +288,33 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="networkbuilding" type="462c0819:PsiDirectoryNode" />
+              <item name="bnparser" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bayesian-network" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bayesian-network" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="networkbuilding" type="462c0819:PsiDirectoryNode" />
+              <item name="probparser" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bayesian-network" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bayesian-network" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="networkbuilding" type="462c0819:PsiDirectoryNode" />
+              <item name="varparser" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bayesian-network" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bayesian-network" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="structures" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -333,13 +339,12 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554561463822" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554913588933" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -449,7 +454,9 @@
       <workItem from="1553758195412" duration="16808000" />
       <workItem from="1553791169615" duration="11787000" />
       <workItem from="1553879248789" duration="10461000" />
-      <workItem from="1554193600745" duration="57685000" />
+      <workItem from="1554193600745" duration="61921000" />
+      <workItem from="1554808759120" duration="609000" />
+      <workItem from="1554813797779" duration="17458000" />
     </task>
     <task id="LOCAL-00001" summary="Working clustering. (Only building jointree)">
       <created>1546096203202</created>
@@ -493,11 +500,18 @@
       <option name="project" value="LOCAL" />
       <updated>1547277078569</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Implemented Correct Algorithm - Create &quot;JointreeAsk&quot; class - Cleaned code">
+      <created>1554561477973</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1554561477973</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="413983000" />
+    <option name="totallyTimeSpent" value="436286000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -510,8 +524,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18070363" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18603411" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.4264121" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -519,8 +534,8 @@
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.26040268" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4986577" weight="0.3109426" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.2592068" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4986577" weight="0.29577464" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.5308776" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -529,7 +544,7 @@
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.58872306" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5013423" side_tool="true" weight="0.3512748" />
-      <window_info anchor="bottom" x="22" y="239" width="1322" height="249" id="Messages" order="11" sideWeight="0.4977307" visible="true" weight="0.3856988" />
+      <window_info anchor="bottom" x="22" y="239" width="1322" height="249" id="Messages" order="11" sideWeight="0.4977307" visible="true" weight="0.5178765" />
       <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
       <window_info anchor="bottom" id="Duplicate detector" order="13" weight="0.67164177" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -632,7 +647,8 @@
     <MESSAGE value="Created BIF parser" />
     <MESSAGE value="Implementing Algorithm FE1 (Factor Elimination 1)" />
     <MESSAGE value="Implemented Correct Algorithm - Create &quot;JointreeAsk&quot; class - Cleaned code" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented Correct Algorithm - Create &quot;JointreeAsk&quot; class - Cleaned code" />
+    <MESSAGE value="Fixed .bif parser - Created logger - Cleaned code" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed .bif parser - Created logger - Cleaned code" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -657,13 +673,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="34" selection-start-line="34" selection-end-line="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/bayes/ConditionalProbabilityTable.java" />
     <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/bayes/impl/CPT.java" />
     <entry file="file://$PROJECT_DIR$/.gitignore">
@@ -774,17 +783,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/domain/AbstractFiniteDomain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="760">
-          <caret line="46" selection-start-line="46" selection-end-line="46" />
-          <folding>
-            <element signature="e#267#284#0" expanded="true" />
-            <element signature="e#342#359#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_201/src.zip!/java/lang/Override.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="373">
@@ -862,35 +860,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/networkbuilding/BNReader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="20" column="24" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/networkbuilding/VariableParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="20" selection-start-line="20" selection-end-line="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/graph.csv">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pathfinder.bif">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="462" column="17" selection-start-line="462" selection-start-column="14" selection-end-line="462" selection-end-column="17" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/network.csv">
       <provider selected="true" editor-type-id="text-editor" />
@@ -909,23 +880,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/networkbuilding/ProbabilityParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1013">
-          <caret line="93" column="60" selection-start-line="93" selection-start-column="60" selection-end-line="93" selection-end-column="60" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/earthquake.bif">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/file">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="57">
@@ -937,13 +891,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret line="88" column="43" selection-start-line="88" selection-start-column="43" selection-end-line="88" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cancer.bif">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="27" column="27" selection-start-line="27" selection-start-column="27" selection-end-line="27" selection-end-column="27" />
         </state>
       </provider>
     </entry>
@@ -968,13 +915,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/bayes/BayesianNetwork.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="38" column="17" selection-start-line="38" selection-start-column="17" selection-end-line="38" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/CategoricalDistribution.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="242">
@@ -982,24 +922,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/structures/impl/Cluster.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/structures/impl/JointreeAsk.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+        <state relative-caret-position="181">
+          <caret line="160" column="57" selection-start-line="160" selection-start-column="57" selection-end-line="160" selection-end-column="57" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#819#820#0" expanded="true" />
+            <element signature="e#878#879#0" expanded="true" />
+            <element signature="e#4714#4715#0" expanded="true" />
+            <element signature="e#4748#4749#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/App.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/structures/impl/Cluster.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="148" column="11" selection-start-line="148" selection-start-column="11" selection-end-line="148" selection-end-column="11" />
+        <state relative-caret-position="1159">
+          <caret line="75" column="4" selection-start-line="75" selection-start-column="4" selection-end-line="75" selection-end-column="4" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#8477#8478#0" expanded="true" />
-            <element signature="e#8538#8539#0" expanded="true" />
+            <element signature="e#1496#1497#0" expanded="true" />
+            <element signature="e#1526#1527#0" expanded="true" />
+            <element signature="e#1658#1659#0" expanded="true" />
+            <element signature="e#1688#1689#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1016,30 +962,106 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/algorithm/BookAlgorithm.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/domain/AbstractFiniteDomain.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="190" column="10" selection-start-line="190" selection-start-column="4" selection-end-line="190" selection-end-column="10" />
+        <state relative-caret-position="180">
+          <caret line="46" selection-start-line="46" selection-end-line="46" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1682#1713#0" expanded="true" />
-            <element signature="e#3152#3183#0" expanded="true" />
-            <element signature="e#8715#8716#0" expanded="true" />
-            <element signature="e#8787#8788#0" expanded="true" />
+            <element signature="e#267#284#0" expanded="true" />
+            <element signature="e#342#359#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/structures/impl/JointreeAsk.java">
+    <entry file="file://$PROJECT_DIR$/pathfinder.bif">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+        <state relative-caret-position="285">
+          <caret line="15" column="38" lean-forward="true" selection-start-line="15" selection-start-column="38" selection-end-line="15" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cancer.bif">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="513">
+          <caret line="27" column="27" selection-start-line="27" selection-start-column="27" selection-end-line="27" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/bayes/BayesianNetwork.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="12" selection-start-column="8" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/algorithm/BookAlgorithm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="138" lean-forward="true" selection-start-line="138" selection-end-line="141" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#819#820#0" expanded="true" />
-            <element signature="e#878#879#0" expanded="true" />
-            <element signature="e#4714#4715#0" expanded="true" />
-            <element signature="e#4748#4749#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/earthquake.bif">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="26" column="6" selection-start-line="26" selection-start-column="6" selection-end-line="26" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/App.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="265">
+          <caret line="57" column="66" lean-forward="true" selection-start-line="57" selection-start-column="66" selection-end-line="57" selection-end-column="66" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/logger/Logger.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <folding>
+            <element signature="e#152#153#0" expanded="true" />
+            <element signature="e#205#206#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/networkbuilding/varparser/BifVariableParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-496">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/networkbuilding/bnparser/BifBNReader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="67" column="19" lean-forward="true" selection-start-line="67" selection-start-column="19" selection-end-line="67" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#8717#8718#0" expanded="true" />
+            <element signature="e#8755#8756#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/networkbuilding/probparser/BifProbabilityParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="159" column="13" lean-forward="true" selection-start-line="159" selection-start-column="13" selection-end-line="159" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#5161#5162#0" expanded="true" />
+            <element signature="e#5191#5192#0" expanded="true" />
           </folding>
         </state>
       </provider>

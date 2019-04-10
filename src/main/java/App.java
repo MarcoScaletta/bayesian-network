@@ -9,10 +9,9 @@ import aima.core.probability.domain.*;
 import aima.core.probability.proposition.AssignmentProposition;
 import aima.core.probability.util.ProbabilityTable;
 import aima.core.probability.util.RandVar;
-import algorithm.BookAlgorithm;
 import structures.impl.JointreeAsk;
 import javafx.util.Pair;
-import networkbuilding.BNReader;
+import networkbuilding.bnparser.BifBNReader;
 import structures.CNode;
 import structures.Jointree;
 import structures.impl.Cluster;
@@ -30,7 +29,7 @@ public class App {
     public static void main(String[] args) throws Exception {
 
 
-        BayesianNetwork bn = new BNReader("pathfinder.bif") {
+        BayesianNetwork bn = new BifBNReader("pathfinder.bif") {
 
             protected Node nodeCreation(RandomVariable var, double[] probs, Node... parents) {
                 return new CNode(var,probs,parents);
@@ -43,18 +42,10 @@ public class App {
                 new AssignmentProposition[] {new AssignmentProposition(var1,((FiniteDomain)var1.getDomain()).getValueAt(0))};
         Jointree j2 = new Jointree(bn);
         printClusters(j2);
-        for (Cluster c :j2.getClusters()){
-            System.out.println(c);
-            System.out.println(c.getNeighbours());
-            System.out.println("Factor");
-            BookAlgorithm.printFactor(c.getFactor());
-            System.out.println();
-        }
-
         Factor jAlgo,ask;
         boolean found;
         int error = 0;
-
+        int tot=0;
         JointreeAsk jAsk = new JointreeAsk(j2,a1);
         for (RandomVariable r : bn.getVariablesInTopologicalOrder()){
             if(!r.equals(var1)) {
@@ -62,9 +53,9 @@ public class App {
                 jAlgo =
                         (ProbabilityTable)  jAsk.ask(new RandomVariable[]{r}, a1, bn);
                 ask = (ProbabilityTable) new EliminationAsk().ask(new RandomVariable[]{r}, a1, bn);
-                System.out.println("MioVal: " + jAlgo);
-                System.out.println("Atteso: " + ask);
-                System.out.println("Calculating error on " + r);
+//                System.out.println("MioVal: " + jAlgo);
+//                System.out.println("Atteso: " + ask);
+//                System.out.println("Calculating error on " + r);
                 found= false;
                 for (int i = 0; i < jAlgo.getValues().length && !found; i++) {
                     if(Math.abs(jAlgo.getValues()[i]-ask.getValues()[i]) > 0.00000000001){
@@ -72,9 +63,10 @@ public class App {
                         error++;
                     }
                 }
+                tot++;
             }
         }
-        System.out.println("Total errors: " + error);
+        System.out.println("Total errors: " + error +" of "+tot);
         System.out.println("FINISH");
 
     }

@@ -1,14 +1,14 @@
-package networkbuilding;
+package networkbuilding.varparser;
 
 import aima.core.probability.RandomVariable;
-import aima.core.probability.domain.*;
+import aima.core.probability.domain.ArbitraryTokenDomain;
+import aima.core.probability.domain.BooleanDomain;
+import aima.core.probability.domain.Domain;
 import aima.core.probability.util.RandVar;
 
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
-public class VariableParser {
+public class BifVariableParser {
 
     private static final String HEADER_NAME_REGEX = "(variable) (\\w+) \\{";
     private static final String TYPE_VAL = "([^;,]+)";
@@ -17,14 +17,10 @@ public class VariableParser {
                     "\\{ ((\\w+)|("+TYPE_VAL+", )+"+TYPE_VAL+") };";
     private static final String CLOSE = "}";
 
-    private static final String PATTERN_BIF_VARIABLE = HEADER_NAME_REGEX+"\\s*"+TYPE_VALUE_REGEX+"\\s*"+CLOSE;
-
     private RandomVariable parsedVariable;
-    private String[] types;
 
-    public VariableParser(String toParse) throws Exception {
+    public BifVariableParser(String toParse) throws Exception {
         String varName;
-        int numVal;
         Object [] values;
         Domain domain = null;
 
@@ -32,7 +28,7 @@ public class VariableParser {
             throw new Exception("wrong variable definition " + toParse);
 
         String[] parsed = toParse.replaceAll(
-                "(variable)|(type)|(,)|(;)|(\n)|\\{|}|\\[|]", "")
+                "(variable)|(\\s+type\\s+)|(,)|(;)|(\n)|\\{|}|\\[|]", "")
                 .replaceAll("(\\s+\\s)", " ").trim().split(" ");
 
         varName = parsed[0];
