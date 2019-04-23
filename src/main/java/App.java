@@ -3,7 +3,6 @@ import aima.core.probability.RandomVariable;
 import aima.core.probability.bayes.BayesianNetwork;
 import aima.core.probability.bayes.FiniteNode;
 import aima.core.probability.bayes.Node;
-import aima.core.probability.bayes.exact.EliminationAsk;
 import aima.core.probability.bayes.impl.BayesNet;
 import aima.core.probability.domain.BooleanDomain;
 import aima.core.probability.domain.FiniteDomain;
@@ -45,7 +44,7 @@ public class App {
 //        BookAlgorithm.printFactor(ABE.sumOut(a,e));
 //        System.out.println(BookAlgorithm.projectArgmax(ABE,b));
 
-        BayesianNetwork bn = new BifBNReader("hailfinder.bif") {
+        BayesianNetwork bn = new BifBNReader("cancer.bif") {
 
             protected Node nodeCreation(RandomVariable var, double[] probs, Node... parents) {
                 return new CNode(var,probs,parents);
@@ -57,29 +56,20 @@ public class App {
 //
         RandomVariable var0 = bn.getVariablesInTopologicalOrder().get(0);
         RandomVariable var1 = bn.getVariablesInTopologicalOrder().get(1);
-        AssignmentProposition [] a1 = // new AssignmentProposition[0];
+        AssignmentProposition [] a1 =
                 new AssignmentProposition[] {
                         new AssignmentProposition(var0,((FiniteDomain)var0.getDomain()).getValueAt(0)),
                         new AssignmentProposition(var1,((FiniteDomain)var1.getDomain()).getValueAt(0))};
         System.out.println("Assign=" + Arrays.toString(a1));
         Jointree j2 = new Jointree(bn);
 
-
-//        for (Cluster c : j2.getClusters()) {
-//            if(c == null)
-//                System.err.println("cluster null");
-//            else if(c.getFactor() == null)
-//                System.err.println(c + "c.getFactor() null");
-//
-//
-//        }
-//        for (Cluster c : j2.getClusters()){
-//                BookAlgorithm.printFactor(c.getFactor());
-//                System.out.println();
-//        }
+        for (Cluster c : j2.getClusters()){
+            BookAlgorithm.printFactor(c.getFactor());
+            System.out.println();
+        }
         printClusters(j2);
-//        Factor jAlgo,ask;
-//
+        Factor jAlgo,ask;
+
 //        boolean found;
 //        int error = 0;
 //        int tot=0;
@@ -91,22 +81,22 @@ public class App {
 //                System.out.println("Query var: " + r);
 //                jAlgo =
 //                        (ProbabilityTable)  jAsk.ask(new RandomVariable[]{r}, a1, bn);
-//                ask = (ProbabilityTable) new EliminationAsk().ask(new RandomVariable[]{r}, a1, bn);
+////                ask = (ProbabilityTable) new EliminationAsk().ask(new RandomVariable[]{r}, a1, bn);
 //                System.out.println("MioVal: " + jAlgo);
-//                System.out.println("Atteso: " + ask);
-//                System.out.println("Calculating error on " + r);
-//                found= false;
-//                for (int i = 0; i < jAlgo.getValues().length && !found; i++) {
-//                    if(Math.abs(jAlgo.getValues()[i]-ask.getValues()[i]) > 0.00000000001){
-//                        found = true;
-//                        error++;
-//                    }
-//                }
-//                tot++;
+////                System.out.println("Atteso: " + ask);
+////                System.out.println("Calculating error on " + r);
+////                found= false;
+////                for (int i = 0; i < jAlgo.getValues().length && !found; i++) {
+////                    if(Math.abs(jAlgo.getValues()[i]-ask.getValues()[i]) > 0.00000000001){
+////                        found = true;
+////                        error++;
+////                    }
+////                }
+////                tot++;
 //            }
 //        }
 //        System.out.println("Total errors: " + error +" of "+tot);
-//        System.out.println("FINISH");
+        System.out.println("FINISH");
 
     }
 

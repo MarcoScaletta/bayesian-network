@@ -1,6 +1,5 @@
 package algorithm;
 
-import aima.core.probability.CategoricalDistribution;
 import aima.core.probability.Factor;
 import aima.core.probability.RandomVariable;
 import aima.core.probability.bayes.BayesianNetwork;
@@ -178,41 +177,34 @@ public class BookAlgorithm {
     projectArgmax(Factor factor, RandomVariable... vars) throws Exception {
         ProbabilityTable p = new ProbabilityTable(vars);
         final Map<Assign, Assign> map = new HashMap<>();
-        System.out.println("vars " + Arrays.toString(vars));
+        factor.iterateOver((map1, v) -> p.iterateOverTable((map2, v1) -> {
+            boolean b = true;
+            double val;
+            int index;
+            Assign tmp1,tmp2;
+            Object [] values;
 
-        factor.iterateOver((map1, v) ->{
+            for (RandomVariable r : map2.keySet()){
+                b= b & map1.get(r).equals(map2.get(r));
+            }
 
-            p.iterateOver((CategoricalDistribution.Iterator) (map2, v1) -> {
-                boolean b = true;
-                double val;
-                int index;
-                Assign tmp1,tmp2;
-                Object [] values;
+            if(b){
 
-                for (RandomVariable r : map2.keySet()){
-                    b= b && map1.get(r) != null && map1.get(r).equals(map2.get(r));
+                values = map2.values().toArray();
+                index = p.getIndex(values);
+
+                val = p.getValue(values);
+                if(v > val){
+                    tmp1 =new Assign(new HashMap<>(map1));
+                    tmp2 = new Assign(new HashMap<>(map2));
+                    p.setValue(index, v);
+                    map.put(tmp2,tmp1);
                 }
+            }
 
-                if(b){
+        }));
 
-                    values = map2.values().toArray();
-                    index = p.getIndex(values);
-
-                    val = p.getValue(values);
-                    if(v > val){
-                        tmp1 =new Assign(new HashMap<>(map1));
-                        tmp2 = new Assign(new HashMap<>(map2));
-                        p.setValue(index, v);
-                        map.put(tmp2,tmp1);
-                    }
-                }
-
-            });
-
-        });
-
-
-        return new MessageMPE(p,map);
+        return new MessageMPE(factor,map);
     }
 
     @SuppressWarnings("Duplicates")

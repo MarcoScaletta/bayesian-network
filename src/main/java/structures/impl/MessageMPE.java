@@ -17,6 +17,8 @@ public class MessageMPE {
         this.maxAssignMap = maxAssignMap;
         this.vars = new HashSet<>();
 
+
+        System.out.println("Creating message: " + maxAssignMap);
         Assign tmp = null;
         for(Assign assign : maxAssignMap.keySet()){
             if(tmp == null) {
