@@ -9,14 +9,11 @@ import aima.core.probability.domain.FiniteDomain;
 import aima.core.probability.proposition.AssignmentProposition;
 import aima.core.probability.util.ProbabilityTable;
 import algorithm.BookAlgorithm;
+import javafx.util.Pair;
 import structures.Jointree;
 import structures.elimination_tree.ElTreeNode;
-import structures.impl.Cluster;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class JointreeAsk implements BayesInference {
 
@@ -24,20 +21,28 @@ public class JointreeAsk implements BayesInference {
     private final Jointree jointree;
 
     public JointreeAsk(Jointree jointree){
-        this(jointree,new AssignmentProposition[0]);
+        this(jointree, "VAR_EL");
     }
 
-    public JointreeAsk(Jointree jointree, AssignmentProposition... observedEvidence){
+    public JointreeAsk(Jointree jointree,String task, AssignmentProposition... observedEvidence){
         this.jointree = jointree;
         this.observedEvidence = observedEvidence;
 
         try {
-            factorElimination(jointree, observedEvidence);
+            switch (task){
+                case "VAR_EL":
+                    factorElimination(jointree, observedEvidence);
+                    break;
+                case "MPE":
+                    MPE(jointree, observedEvidence);
+                    break;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
+
+
 
 
     @Override
@@ -79,7 +84,7 @@ public class JointreeAsk implements BayesInference {
      * @throws Exception Exception
      */
     public Factor factorEliminationMex(Jointree g,
-                                              RandomVariable... q) throws Exception{
+                                       RandomVariable... q) throws Exception{
         List<Cluster> clusters = new ArrayList<>(g.getClusters());
         Cluster root = BookAlgorithm.rootForVariables(clusters,q);
         pull(root);
@@ -103,9 +108,21 @@ public class JointreeAsk implements BayesInference {
             c.setMessage(((ProbabilityTable) c.getMessage()).normalize());
         }
     }
+    /**
+     * Implentation of MPE algorithm
+     * @param g jointree - structure containing set of cluster
+     * @param e evidences to be inserted
+     * @throws Exception Exception
+     */
+    private Pair<Assign, Double> MPE(Jointree g, AssignmentProposition... e)throws Exception{
+        Cluster cluster;
+        insertEvidences(g, e);
+        cluster=g.getClusters().iterator().next();
+        return pullMPE(cluster);
+    }
 
     private void insertEvidences(Jointree g,
-                                       AssignmentProposition... e) throws Exception {
+                                 AssignmentProposition... e) throws Exception {
         Map<RandomVariable,Cluster> evMap = g.getVarAssignment();
         Cluster cluster;
 
@@ -177,6 +194,70 @@ public class JointreeAsk implements BayesInference {
             if(!e.equals(i))
                 pushRec(j,(Cluster) e);
     }
+
+    private Pair<Assign, Double> pullMPE(Cluster root){
+
+        List<MessageMPE> messages = new ArrayList<>();
+        Factor m_root = root.getFactor();
+        Pair<Assign, Double> maxAssignPair;
+        MessageMPE messageMPE;
+
+        Assign subset;
+
+        for(ElTreeNode e : root.getNeighbours()) {
+            messageMPE = pullMPERec((Cluster)e, root);
+            m_root = m_root.pointwiseProduct(messageMPE.getFactor());
+            messages.add(messageMPE);
+        }
+        maxAssignPair = BookAlgorithm.argmax(m_root);
+
+        Assign maxAssign = new Assign(new HashMap<>(maxAssignPair.getKey().getAssign()));
+        for(MessageMPE m : messages){
+            subset = maxAssign.getSubset(m.getVars());
+            maxAssignPair.getKey().merge(m.getMaxAssignMap().get(subset));
+        }
+
+        System.out.println("MPE " + maxAssignPair);
+
+        return maxAssignPair;
+    }
+
+    private MessageMPE pullMPERec(Cluster i, Cluster j){
+
+        List<MessageMPE> messages = new ArrayList<>();
+        Factor m_ij =i.getFactor();
+        MessageMPE messageMPE = null;
+
+        Assign subset;
+
+        for(ElTreeNode e : i.getNeighbours()) {
+
+            if (!e.equals(j)) {
+                messageMPE = pullMPERec((Cluster) e, i);
+                m_ij = m_ij.pointwiseProduct(messageMPE.getFactor());
+                messages.add(messageMPE);
+            }
+        }
+
+        try {
+            messageMPE = BookAlgorithm.projectArgmax(m_ij, i.getSeparators(j).toArray(new RandomVariable[0]));
+
+
+            for(Assign a : messageMPE.getMaxAssignMap().keySet()){
+                Assign maxAssign = new Assign(new HashMap<>(a.getAssign()));
+
+                for(MessageMPE m : messages){
+
+                    subset = maxAssign.getSubset(m.getVars());
+                    a.merge(m.getMaxAssignMap().get(subset));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return messageMPE;
+    }
+
 
     private void insertEvidence(Cluster cluster, AssignmentProposition assign){
 

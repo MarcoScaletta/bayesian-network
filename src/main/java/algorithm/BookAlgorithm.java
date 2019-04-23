@@ -5,10 +5,14 @@ import aima.core.probability.RandomVariable;
 import aima.core.probability.bayes.BayesianNetwork;
 import aima.core.probability.bayes.ConditionalProbabilityTable;
 import aima.core.probability.bayes.FiniteNode;
+import aima.core.probability.bayes.impl.CPT;
+import aima.core.probability.util.ProbabilityTable;
 import structures.Jointree;
 import structures.elimination_tree.ElTreeNode;
 import javafx.util.Pair;
+import structures.impl.Assign;
 import structures.impl.Cluster;
+import structures.impl.MessageMPE;
 
 import java.util.*;
 
@@ -169,6 +173,57 @@ public class BookAlgorithm {
         return new Pair<>(nI,nJ);
     }
 
+    public static MessageMPE
+    projectArgmax(Factor factor, RandomVariable... vars) throws Exception {
+        ProbabilityTable p = new ProbabilityTable(vars);
+        final Map<Assign, Assign> map = new HashMap<>();
+        factor.iterateOver((map1, v) -> p.iterateOverTable((map2, v1) -> {
+            boolean b = true;
+            double val;
+            int index;
+            Assign tmp1,tmp2;
+            Object [] values;
+
+            for (RandomVariable r : map2.keySet()){
+                b= b & map1.get(r).equals(map2.get(r));
+            }
+
+            if(b){
+
+                values = map2.values().toArray();
+                index = p.getIndex(values);
+
+                val = p.getValue(values);
+                if(v > val){
+                    tmp1 =new Assign(new HashMap<>(map1));
+                    tmp2 = new Assign(new HashMap<>(map2));
+                    p.setValue(index, v);
+                    map.put(tmp2,tmp1);
+                }
+            }
+
+        }));
+
+        return new MessageMPE(factor,map);
+    }
+
+    @SuppressWarnings("Duplicates")
+    public static Pair<Assign,Double> argmax(Factor factor, RandomVariable... vars){
+        Map<String, Assign> map = new HashMap<>();
+        Map<String,Double> maxVal = new HashMap<>();
+        maxVal.put("MAX",0.0);
+
+        factor.iterateOver((map1, v) -> {
+            if(v > maxVal.get("MAX")){
+                maxVal.put("MAX",v);
+                map.put("MAX_ASSIGN",new Assign(new HashMap<>(map1)));
+
+                System.out.println("best assign " + map1);
+            }});
+        System.out.println("final best assign " + map.get("MAX_ASSIGN")+ " " + maxVal.get("MAX"));
+        return new Pair<>(map.get("MAX_ASSIGN"),maxVal.get("MAX"));
+    }
+
     /**
      *
      * @param factor factor to sum out on all its variables excepted var
@@ -185,7 +240,7 @@ public class BookAlgorithm {
     // PRIVATE METHODS
 
     public static Cluster rootForVariables(Collection<Cluster> nodes,
-                                            RandomVariable... q) throws Exception {
+                                           RandomVariable... q) throws Exception {
         Cluster root = null;
         for (Cluster node : nodes) {
 

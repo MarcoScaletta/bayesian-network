@@ -3,18 +3,20 @@ import aima.core.probability.RandomVariable;
 import aima.core.probability.bayes.BayesianNetwork;
 import aima.core.probability.bayes.FiniteNode;
 import aima.core.probability.bayes.Node;
-import aima.core.probability.bayes.exact.EliminationAsk;
 import aima.core.probability.bayes.impl.BayesNet;
-import aima.core.probability.domain.*;
+import aima.core.probability.domain.BooleanDomain;
+import aima.core.probability.domain.FiniteDomain;
 import aima.core.probability.proposition.AssignmentProposition;
 import aima.core.probability.util.ProbabilityTable;
 import aima.core.probability.util.RandVar;
-import structures.impl.JointreeAsk;
+import algorithm.BookAlgorithm;
 import javafx.util.Pair;
+import logger.Logger;
 import networkbuilding.bnparser.BifBNReader;
 import structures.CNode;
 import structures.Jointree;
 import structures.impl.Cluster;
+import structures.impl.JointreeAsk;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -26,10 +28,23 @@ public class App {
 
     private static Map<String, String> map = new HashMap<>();
 
+
+
+
     public static void main(String[] args) throws Exception {
 
+        RandomVariable a =  boolRandVar("A");
+        RandomVariable b =  boolRandVar("B");
+        RandomVariable e =  boolRandVar("E");
 
-        BayesianNetwork bn = new BifBNReader("pathfinder.bif") {
+        Factor ABE = new ProbabilityTable(
+                new double[] {0.95,0.05,0.94, 0.06,0.29, 0.71,0.001, 0.999},b,e,a);
+
+//        BookAlgorithm.printFactor(ABE);
+//        BookAlgorithm.printFactor(ABE.sumOut(a,e));
+//        System.out.println(BookAlgorithm.projectArgmax(ABE,b));
+
+        BayesianNetwork bn = new BifBNReader("cancer.bif") {
 
             protected Node nodeCreation(RandomVariable var, double[] probs, Node... parents) {
                 return new CNode(var,probs,parents);
@@ -37,36 +52,50 @@ public class App {
         }.getBayesianNetwork();
 
 
+
+//
+        RandomVariable var0 = bn.getVariablesInTopologicalOrder().get(0);
         RandomVariable var1 = bn.getVariablesInTopologicalOrder().get(1);
         AssignmentProposition [] a1 =
-                new AssignmentProposition[] {new AssignmentProposition(var1,((FiniteDomain)var1.getDomain()).getValueAt(0))};
+                new AssignmentProposition[] {
+                        new AssignmentProposition(var0,((FiniteDomain)var0.getDomain()).getValueAt(0)),
+                        new AssignmentProposition(var1,((FiniteDomain)var1.getDomain()).getValueAt(0))};
+        System.out.println("Assign=" + Arrays.toString(a1));
         Jointree j2 = new Jointree(bn);
+
+        for (Cluster c : j2.getClusters()){
+            BookAlgorithm.printFactor(c.getFactor());
+            System.out.println();
+        }
         printClusters(j2);
         Factor jAlgo,ask;
-        boolean found;
-        int error = 0;
-        int tot=0;
-        JointreeAsk jAsk = new JointreeAsk(j2,a1);
-        for (RandomVariable r : bn.getVariablesInTopologicalOrder()){
-            if(!r.equals(var1)) {
-                System.out.println("\nSTART:");
-                jAlgo =
-                        (ProbabilityTable)  jAsk.ask(new RandomVariable[]{r}, a1, bn);
-                ask = (ProbabilityTable) new EliminationAsk().ask(new RandomVariable[]{r}, a1, bn);
+
+//        boolean found;
+//        int error = 0;
+//        int tot=0;
+        JointreeAsk jAsk = new JointreeAsk(j2,"MPE",a1);
+//        for (RandomVariable r : bn.getVariablesInTopologicalOrder()){
+//            if(!r.equals(var1)) {
+//                System.out.println("\nSTART:");
+//                System.out.println("Assign: " + Arrays.toString(a1));
+//                System.out.println("Query var: " + r);
+//                jAlgo =
+//                        (ProbabilityTable)  jAsk.ask(new RandomVariable[]{r}, a1, bn);
+////                ask = (ProbabilityTable) new EliminationAsk().ask(new RandomVariable[]{r}, a1, bn);
 //                System.out.println("MioVal: " + jAlgo);
-//                System.out.println("Atteso: " + ask);
-//                System.out.println("Calculating error on " + r);
-                found= false;
-                for (int i = 0; i < jAlgo.getValues().length && !found; i++) {
-                    if(Math.abs(jAlgo.getValues()[i]-ask.getValues()[i]) > 0.00000000001){
-                        found = true;
-                        error++;
-                    }
-                }
-                tot++;
-            }
-        }
-        System.out.println("Total errors: " + error +" of "+tot);
+////                System.out.println("Atteso: " + ask);
+////                System.out.println("Calculating error on " + r);
+////                found= false;
+////                for (int i = 0; i < jAlgo.getValues().length && !found; i++) {
+////                    if(Math.abs(jAlgo.getValues()[i]-ask.getValues()[i]) > 0.00000000001){
+////                        found = true;
+////                        error++;
+////                    }
+////                }
+////                tot++;
+//            }
+//        }
+//        System.out.println("Total errors: " + error +" of "+tot);
         System.out.println("FINISH");
 
     }

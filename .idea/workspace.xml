@@ -2,13 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="74d0afb6-706b-4bf9-be04-3a89c2d99e82" name="Default" comment="Fixed .bif parser - Created logger - Cleaned code">
-      <change afterPath="$PROJECT_DIR$/src/main/java/logger/Logger.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/networkbuilding/probparser/BifProbabilityParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_googlecode_aima_java_aima_core_3_0_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_apache_18.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_encog_encog_core_3_4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/structures/impl/Assign.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/structures/impl/MessageMPE.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bayesian-network.iml" beforeDir="false" afterPath="$PROJECT_DIR$/bayesian-network.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/networkbuilding/BNReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/networkbuilding/bnparser/BifBNReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/networkbuilding/ProbabilityParser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/networkbuilding/VariableParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/networkbuilding/varparser/BifVariableParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/algorithm/BookAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/algorithm/BookAlgorithm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/logger/Logger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/logger/Logger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/structures/impl/JointreeAsk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/structures/impl/JointreeAsk.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -38,13 +43,16 @@
     <expand />
     <select />
   </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="isMigrated" value="true" />
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/App.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="265">
-              <caret line="57" column="66" lean-forward="true" selection-start-line="57" selection-start-column="66" selection-end-line="57" selection-end-column="66" />
+            <state relative-caret-position="232">
+              <caret line="75" column="56" lean-forward="true" selection-start-line="75" selection-start-column="56" selection-end-line="75" selection-end-column="56" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -53,37 +61,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/networkbuilding/probparser/BifProbabilityParser.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/structures/impl/JointreeAsk.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="159" column="13" lean-forward="true" selection-start-line="159" selection-start-column="13" selection-end-line="159" selection-end-column="13" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#5161#5162#0" expanded="true" />
-                <element signature="e#5191#5192#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/logger/Logger.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38">
-              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-              <folding>
-                <element signature="e#152#153#0" expanded="true" />
-                <element signature="e#205#206#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/networkbuilding/varparser/BifVariableParser.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-496">
-              <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+            <state relative-caret-position="3">
+              <caret line="111" column="36" selection-start-line="111" selection-start-column="36" selection-end-line="111" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -92,28 +73,34 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/algorithm/BookAlgorithm.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/structures/impl/MessageMPE.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="139">
-              <caret line="138" lean-forward="true" selection-start-line="138" selection-end-line="141" selection-end-column="5" />
+            <state relative-caret-position="98">
+              <caret line="14" column="15" selection-start-line="14" selection-start-column="15" selection-end-line="14" selection-end-column="15" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#1080#1081#0" expanded="true" />
+                <element signature="e#1107#1108#0" expanded="true" />
+                <element signature="e#1152#1153#0" expanded="true" />
+                <element signature="e#1188#1189#0" expanded="true" />
+                <element signature="e#1221#1222#0" expanded="true" />
+                <element signature="e#1250#1251#0" expanded="true" />
+                <element signature="e#1302#1303#0" expanded="true" />
+                <element signature="e#1337#1338#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/networkbuilding/bnparser/BifBNReader.java">
+        <entry file="file://$PROJECT_DIR$/cancer.bif">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/earthquake.bif">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="67" column="19" lean-forward="true" selection-start-line="67" selection-start-column="19" selection-end-line="67" selection-end-column="19" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#8717#8718#0" expanded="true" />
-                <element signature="e#8755#8756#0" expanded="true" />
-              </folding>
-            </state>
+            <state relative-caret-position="-228" />
           </provider>
         </entry>
       </file>
@@ -129,17 +116,9 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>setN</find>
-      <find>push</find>
-      <find>equa</find>
-      <find>printCluster</find>
-      <find>j1</find>
-      <find>setNew</find>
-      <find>ask</find>
       <find>inser</find>
       <find>proj</find>
       <find>insert</find>
-      <find>sep</find>
       <find>root</find>
       <find>separators</find>
       <find>prob</find>
@@ -156,8 +135,16 @@
       <find>Sy</find>
       <find>parsed</find>
       <find>System.out</find>
-      <find>err</find>
       <find>printFa</find>
+      <find>sep</find>
+      <find>rec</find>
+      <find>argmax</find>
+      <find>rec</find>
+      <find>MPE</find>
+      <find>MPE &quot;</find>
+      <find>SYstem.</find>
+      <find>MPE(</find>
+      <find>err</find>
       <find>printFactor</find>
     </findStrings>
   </component>
@@ -196,20 +183,23 @@
         <option value="$PROJECT_DIR$/net" />
         <option value="$PROJECT_DIR$/src/main/java/structures/Jointree.java" />
         <option value="$PROJECT_DIR$/src/main/java/algorithm/JointreeAsk.java" />
-        <option value="$PROJECT_DIR$/src/main/java/structures/impl/Cluster.java" />
-        <option value="$PROJECT_DIR$/src/main/java/algorithm/BookAlgorithm.java" />
-        <option value="$PROJECT_DIR$/src/main/java/structures/impl/JointreeAsk.java" />
         <option value="$PROJECT_DIR$/src/main/java/networkbuilding/VariableParser.java" />
         <option value="$PROJECT_DIR$/earthquake.bif" />
         <option value="$PROJECT_DIR$/src/main/java/networkbuilding/BNReader.java" />
         <option value="$PROJECT_DIR$/src/main/java/networkbuilding/ProbabilityParser.java" />
         <option value="$PROJECT_DIR$/src/main/java/networkbuilding/BifBNReader.java" />
         <option value="$PROJECT_DIR$/src/main/java/networkbuilding/BifProbabilityParser.java" />
-        <option value="$PROJECT_DIR$/src/main/java/App.java" />
         <option value="$PROJECT_DIR$/src/main/java/networkbuilding/Logger.java" />
-        <option value="$PROJECT_DIR$/src/main/java/logger/Logger.java" />
         <option value="$PROJECT_DIR$/src/main/java/networkbuilding/bnparser/BifBNReader.java" />
         <option value="$PROJECT_DIR$/src/main/java/networkbuilding/probparser/BifProbabilityParser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/logger/Logger.java" />
+        <option value="$PROJECT_DIR$/src/main/java/structures/impl/MaxAssign.java" />
+        <option value="$PROJECT_DIR$/src/main/java/structures/impl/MessageMPE.java" />
+        <option value="$PROJECT_DIR$/src/main/java/structures/impl/Assign.java" />
+        <option value="$PROJECT_DIR$/src/main/java/App.java" />
+        <option value="$PROJECT_DIR$/src/main/java/algorithm/BookAlgorithm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/structures/impl/Cluster.java" />
+        <option value="$PROJECT_DIR$/src/main/java/structures/impl/JointreeAsk.java" />
       </list>
     </option>
   </component>
@@ -225,16 +215,16 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="width" value="976" />
-    <option name="height" value="1048" />
+    <option name="x" value="960" />
+    <option name="y" value="27" />
+    <option name="width" value="960" />
+    <option name="height" value="1053" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -242,11 +232,6 @@
             <path>
               <item name="bayesian-network" type="b2602c69:ProjectViewProjectNode" />
               <item name="bayesian-network" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bayesian-network" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bayesian-network" type="462c0819:PsiDirectoryNode" />
-              <item name=".idea" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="bayesian-network" type="b2602c69:ProjectViewProjectNode" />
@@ -273,6 +258,14 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="algorithm" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bayesian-network" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bayesian-network" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="logger" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="bayesian-network" type="b2602c69:ProjectViewProjectNode" />
@@ -339,12 +332,15 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554913588933" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -359,6 +355,7 @@
       <recent name="structures" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="C:\Users\Marco\Documents\GitHub\bayesian-network" />
     </key>
   </component>
@@ -457,6 +454,8 @@
       <workItem from="1554193600745" duration="61921000" />
       <workItem from="1554808759120" duration="609000" />
       <workItem from="1554813797779" duration="17458000" />
+      <workItem from="1555685596519" duration="23850000" />
+      <workItem from="1555837962406" duration="13110000" />
     </task>
     <task id="LOCAL-00001" summary="Working clustering. (Only building jointree)">
       <created>1546096203202</created>
@@ -511,7 +510,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="436286000" />
+    <option name="totallyTimeSpent" value="473246000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -523,10 +522,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="0" y="27" width="1600" height="873" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18603411" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22943445" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.4264121" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -534,17 +533,17 @@
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.2592068" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4986577" weight="0.29577464" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.5308776" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.25813448" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4986577" visible="true" weight="0.3167116" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.5229111" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32719547" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.13123645" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.24929178" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="9" weight="0.58872306" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.5878525" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5013423" side_tool="true" weight="0.3512748" />
-      <window_info anchor="bottom" x="22" y="239" width="1322" height="249" id="Messages" order="11" sideWeight="0.4977307" visible="true" weight="0.5178765" />
+      <window_info anchor="bottom" x="22" y="239" width="1322" height="249" id="Messages" order="11" sideWeight="0.4977307" weight="0.21159029" />
       <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
       <window_info anchor="bottom" id="Duplicate detector" order="13" weight="0.67164177" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -559,6 +558,40 @@
       <window_info anchor="right" id="Maven" order="9" weight="0.32982844" />
       <window_info anchor="right" id="Coverage" order="10" side_tool="true" weight="0.3293556" />
     </layout>
+    <layout-to-restore>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22943445" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.4264121" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.25813448" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4986577" visible="true" weight="0.40161726" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.5229111" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.13123645" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.24929178" />
+      <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.5878525" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5013423" side_tool="true" weight="0.3512748" />
+      <window_info anchor="bottom" x="22" y="239" width="1322" height="249" id="Messages" order="11" sideWeight="0.4977307" weight="0.21159029" />
+      <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Duplicate detector" order="13" weight="0.67164177" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.24900557" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Palette&#9;" order="6" />
+      <window_info anchor="right" id="Maven Projects" order="7" weight="0.32980332" />
+      <window_info anchor="right" id="Database" order="8" weight="0.3295302" />
+      <window_info anchor="right" id="Maven" order="9" weight="0.32982844" />
+      <window_info anchor="right" id="Coverage" order="10" side_tool="true" weight="0.3293556" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -673,183 +706,25 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/bayes/ConditionalProbabilityTable.java" />
-    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/bayes/impl/CPT.java" />
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0.jar!/aima/core/probability/bayes/BayesianNetwork.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="11" column="25" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/structures/elimination_tree/ElTreeNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0.jar!/aima/core/probability/bayes/BayesInference.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0.jar!/aima/core/probability/proposition/AssignmentProposition.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0.jar!/aima/core/probability/bayes/exact/EliminationAsk.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="53" column="19" selection-start-line="53" selection-start-column="19" selection-end-line="53" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/bayes/BayesInference.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-7">
-          <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/domain/Domain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="107">
-          <caret line="12" column="17" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/domain/AbstractDiscreteDomain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="22" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/domain/DiscreteDomain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/domain/ContinuousDomain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/domain/FiniteDomain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/example/ExampleRV.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-114">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/util/RandVar.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="24" column="11" selection-start-line="24" selection-start-column="11" selection-end-line="24" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/RandomVariable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="24" column="5" lean-forward="true" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_201/src.zip!/java/lang/Override.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="373">
-          <caret line="50" column="18" selection-start-line="50" selection-start-column="18" selection-end-line="50" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/proposition/Proposition.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="21" column="17" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/proposition/AssignmentProposition.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="521">
-          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/domain/FiniteIntegerDomain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/domain/BooleanDomain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="25" column="11" selection-start-line="25" selection-start-column="11" selection-end-line="25" selection-end-column="11" />
-          <folding>
-            <element signature="e#695#696#0" expanded="true" />
-            <element signature="e#738#739#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0.jar!/aima/core/probability/proposition/AssignmentProposition.class" />
+    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0.jar!/aima/core/probability/bayes/exact/EliminationAsk.class" />
+    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/bayes/BayesInference.java" />
+    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/domain/Domain.java" />
+    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/domain/AbstractDiscreteDomain.java" />
+    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/domain/DiscreteDomain.java" />
+    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/domain/ContinuousDomain.java" />
+    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/domain/FiniteDomain.java" />
+    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/example/ExampleRV.java" />
+    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/util/RandVar.java" />
+    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/RandomVariable.java" />
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_201/src.zip!/java/lang/Override.java" />
+    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/proposition/Proposition.java" />
+    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/proposition/AssignmentProposition.java" />
+    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/domain/FiniteIntegerDomain.java" />
+    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/domain/BooleanDomain.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/algorithm/aa" />
-    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/util/ProbabilityTable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4731">
-          <caret line="281" column="16" selection-start-line="281" selection-start-column="16" selection-end-line="281" selection-end-column="16" />
-          <folding>
-            <element signature="e#7809#7810#0" expanded="true" />
-            <element signature="e#7863#7864#0" expanded="true" />
-            <element signature="e#17626#17627#0" expanded="true" />
-            <element signature="e#17668#17669#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/util/ProbUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="893">
-          <caret line="57" selection-start-line="57" selection-end-line="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/Factor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="35" column="13" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/util/ProbUtil.java" />
+    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/Factor.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/structures/CNode.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="138">
@@ -860,96 +735,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/graph.csv">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/network.csv">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sachs.bif">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="35" column="17" selection-start-line="35" selection-start-column="14" selection-end-line="35" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/survey.bif">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="9" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/file">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="3" column="17" selection-start-line="3" selection-start-column="17" selection-end-line="3" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/clusters.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="88" column="43" selection-start-line="88" selection-start-column="43" selection-end-line="88" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_201/src.zip!/java/lang/System.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="98">
-          <caret line="109" column="36" selection-start-line="109" selection-start-column="36" selection-end-line="109" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/net">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="13" column="8" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/bayes/exact/EliminationAsk.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="50" column="11" selection-start-line="50" selection-start-column="11" selection-end-line="50" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/CategoricalDistribution.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="19" column="17" selection-start-line="19" selection-start-column="17" selection-end-line="19" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/structures/impl/JointreeAsk.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="160" column="57" selection-start-line="160" selection-start-column="57" selection-end-line="160" selection-end-column="57" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#819#820#0" expanded="true" />
-            <element signature="e#878#879#0" expanded="true" />
-            <element signature="e#4714#4715#0" expanded="true" />
-            <element signature="e#4748#4749#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/structures/impl/Cluster.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1159">
-          <caret line="75" column="4" selection-start-line="75" selection-start-column="4" selection-end-line="75" selection-end-column="4" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1496#1497#0" expanded="true" />
-            <element signature="e#1526#1527#0" expanded="true" />
-            <element signature="e#1658#1659#0" expanded="true" />
-            <element signature="e#1688#1689#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/graph.csv" />
+    <entry file="file://$PROJECT_DIR$/network.csv" />
+    <entry file="file://$PROJECT_DIR$/survey.bif" />
+    <entry file="file://$PROJECT_DIR$/file" />
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_201/src.zip!/java/lang/System.java" />
+    <entry file="file://$PROJECT_DIR$/net" />
+    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/bayes/exact/EliminationAsk.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/structures/Jointree.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2">
@@ -962,79 +754,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/domain/AbstractFiniteDomain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="46" selection-start-line="46" selection-end-line="46" />
-          <folding>
-            <element signature="e#267#284#0" expanded="true" />
-            <element signature="e#342#359#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pathfinder.bif">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="15" column="38" lean-forward="true" selection-start-line="15" selection-start-column="38" selection-end-line="15" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cancer.bif">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
-          <caret line="27" column="27" selection-start-line="27" selection-start-column="27" selection-end-line="27" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/bayes/BayesianNetwork.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="12" selection-start-column="8" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/algorithm/BookAlgorithm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="138" lean-forward="true" selection-start-line="138" selection-end-line="141" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/earthquake.bif">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="26" column="6" selection-start-line="26" selection-start-column="6" selection-end-line="26" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/App.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="57" column="66" lean-forward="true" selection-start-line="57" selection-start-column="66" selection-end-line="57" selection-end-column="66" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/logger/Logger.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-          <folding>
-            <element signature="e#152#153#0" expanded="true" />
-            <element signature="e#205#206#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/pathfinder.bif" />
+    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/bayes/BayesianNetwork.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/networkbuilding/varparser/BifVariableParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-496">
+        <state relative-caret-position="76">
           <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1044,24 +768,179 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/networkbuilding/bnparser/BifBNReader.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="67" column="19" lean-forward="true" selection-start-line="67" selection-start-column="19" selection-end-line="67" selection-end-column="19" />
+        <state relative-caret-position="893">
+          <caret line="67" column="19" selection-start-line="67" selection-start-column="19" selection-end-line="67" selection-end-column="19" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#8717#8718#0" expanded="true" />
-            <element signature="e#8755#8756#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/networkbuilding/probparser/BifProbabilityParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="159" column="13" lean-forward="true" selection-start-line="159" selection-start-column="13" selection-end-line="159" selection-end-column="13" />
+        <state relative-caret-position="1881">
+          <caret line="159" column="13" selection-start-line="159" selection-start-column="13" selection-end-line="159" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#5161#5162#0" expanded="true" />
-            <element signature="e#5191#5192#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sachs.bif">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0.jar!/aima/core/probability/Factor.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="18" column="11" selection-start-line="18" selection-start-column="11" selection-end-line="18" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0.jar!/aima/core/probability/util/ProbabilityTable.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="143">
+          <caret line="140" column="15" selection-start-line="140" selection-start-column="15" selection-end-line="140" selection-end-column="15" />
+          <folding>
+            <element signature="e#7370#8030#0" expanded="true" />
+            <element signature="e#8029#8030#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/CategoricalDistribution.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="236">
+          <caret line="81" column="32" selection-start-line="81" selection-start-column="32" selection-end-line="81" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/domain/AbstractFiniteDomain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="46" column="18" selection-start-line="46" selection-start-column="18" selection-end-line="46" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor />
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/clusters.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="38" selection-start-column="38" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/logger/Logger.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/aima-java/aima-core/3.0.0/aima-core-3.0.0-sources.jar!/aima/core/probability/util/ProbabilityTable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2850">
+          <caret line="174" column="18" selection-start-line="174" selection-start-column="18" selection-end-line="174" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/java-8-oracle/src.zip!/java/util/Map.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="211" column="6" selection-start-line="211" selection-start-column="6" selection-end-line="211" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/structures/impl/Assign.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="43" column="37" selection-start-line="43" selection-start-column="37" selection-end-line="43" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#221#222#0" expanded="true" />
+            <element signature="e#258#259#0" expanded="true" />
+            <element signature="e#233#234#0" expanded="true" />
+            <element signature="e#269#270#0" expanded="true" />
+            <element signature="e#409#410#0" expanded="true" />
+            <element signature="e#438#439#0" expanded="true" />
+            <element signature="e#819#820#0" expanded="true" />
+            <element signature="e#840#841#0" expanded="true" />
+            <element signature="e#1200#1201#0" expanded="true" />
+            <element signature="e#1243#1244#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cancer.bif">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/algorithm/BookAlgorithm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="246" selection-start-line="246" selection-end-line="246" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4583#4584#0" expanded="true" />
+            <element signature="e#4655#4656#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/earthquake.bif">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-228" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/structures/impl/Cluster.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/App.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="232">
+          <caret line="75" column="56" lean-forward="true" selection-start-line="75" selection-start-column="56" selection-end-line="75" selection-end-column="56" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/structures/impl/MessageMPE.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="98">
+          <caret line="14" column="15" selection-start-line="14" selection-start-column="15" selection-end-line="14" selection-end-column="15" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1080#1081#0" expanded="true" />
+            <element signature="e#1107#1108#0" expanded="true" />
+            <element signature="e#1152#1153#0" expanded="true" />
+            <element signature="e#1188#1189#0" expanded="true" />
+            <element signature="e#1221#1222#0" expanded="true" />
+            <element signature="e#1250#1251#0" expanded="true" />
+            <element signature="e#1302#1303#0" expanded="true" />
+            <element signature="e#1337#1338#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/structures/impl/JointreeAsk.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3">
+          <caret line="111" column="36" selection-start-line="111" selection-start-column="36" selection-end-line="111" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
