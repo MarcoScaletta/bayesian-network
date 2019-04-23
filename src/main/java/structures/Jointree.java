@@ -1,10 +1,14 @@
 package structures;
 
+import aima.core.probability.Factor;
 import aima.core.probability.RandomVariable;
 import aima.core.probability.bayes.BayesianNetwork;
+import aima.core.probability.bayes.Node;
 import aima.core.probability.proposition.AssignmentProposition;
+import aima.core.probability.util.ProbabilityTable;
 import algorithm.BookAlgorithm;
 import javafx.util.Pair;
+import structures.elimination_tree.ElTreeNode;
 import structures.impl.Cluster;
 
 import java.util.*;
@@ -18,17 +22,62 @@ public class Jointree {
 
     private HashMap<RandomVariable,Cluster> varAssignment;
 
+    private void controlBN(BayesianNetwork bn) throws Exception {
+        Set<CNode> nodes = new HashSet<>();
+        CNode node;
+        if(bn.getVariablesInTopologicalOrder().size() < 1)
+            throw new Exception ("Bayesian Network empty!");
+        else{
+            node = (CNode) bn.getNode(bn.getVariablesInTopologicalOrder().get(0));
+            nodes.add(node);
+            controlBNRec(node, nodes);
+            System.err.println("BN SIZE: " + bn.getVariablesInTopologicalOrder().size());
+            System.err.println("SUB BN SIZE: " + nodes.size());
+            if(bn.getVariablesInTopologicalOrder().size() != nodes.size())
+                throw new Exception("There are at least 2 sub network disjoint, " +
+                        "one consists of nodes" + nodes);
+        }
+    }
+
+    private void controlBNRec (CNode node, Set<CNode> nodes){
+        for(CNode c : node.getConnections()){
+            if(!nodes.contains(c)){
+                nodes.add(c);
+                controlBNRec(c,nodes);
+            }
+        }
+    }
+
+    private void factorControl() throws Exception {
+
+        for(Cluster c : clusters)
+            if(c.getFactor() == null){
+                for(RandomVariable r : bn.getVariablesInTopologicalOrder()){
+                    System.out.println(r + " D=" + r.getDomain());
+                }
+
+                throw new Exception("cluster " + c  + " has null factor");
+            }
+    }
 
     public Jointree(BayesianNetwork bn) throws Exception {
         this.bn = bn;
         this.clusters = new HashSet<>();
         this.varAssignment = new HashMap<>();
+
+
+
         CNode [] cNodesArray =  init();
+
+        controlBN(bn);
+
 
         fillEdge(cNodesArray);
 
         createJointree(cNodesArray);
         BookAlgorithm.neighboursControl(new ArrayList<>(clusters));
+        separatorControl();
+        factorControl();
 
     }
 
@@ -156,6 +205,7 @@ public class Jointree {
     private void assignCPTs() throws Exception {
         boolean foundCluster;
 
+        Set<Cluster> c = new HashSet<>(clusters);
 
         Iterator<Cluster> clusterIterator;
         CNode node;
@@ -169,6 +219,7 @@ public class Jointree {
             while(clusterIterator.hasNext() && !foundCluster){
                 cluster = clusterIterator.next();
                 if(cluster.getVars().containsAll(node.getFamily())){
+                    c.remove(cluster);
                     foundCluster = true;
                     varAssignment.put(node.getRandomVariable(),cluster);
                     if(node.getCPT().getFactorFor() == null)
@@ -177,12 +228,28 @@ public class Jointree {
                             cluster.getFactor() == null ?
                                     node.getCPT().getFactorFor() :
                                     cluster.getFactor().pointwiseProduct(node.getCPT().getFactorFor()));
-
                 }
             }
         }
+        for(Cluster notInit : c){
+
+            Factor f = new ProbabilityTable(new double[]{1});
+            notInit.setFactor(f);
+        }
+
+        System.out.println("cluster not init " + c);
 
 
+    }
+
+    public void separatorControl(){
+        for (Cluster c : clusters){
+            for (ElTreeNode n : c.getNeighbours()){
+                if(c.getSeparators(n).size() < 1){
+                    System.err.println("error neighbour " + c + " " +  n);
+                }
+            }
+        }
     }
 
     private Set<RandomVariable> getAllVarsFromNodes(Set<CNode> nodes){
