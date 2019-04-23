@@ -195,7 +195,7 @@ public class JointreeAsk implements BayesInference {
                 pushRec(j,(Cluster) e);
     }
 
-    private Pair<Assign, Double> pullMPE(Cluster root) throws Exception {
+    private Pair<Assign, Double> pullMPE(Cluster root){
 
         List<MessageMPE> messages = new ArrayList<>();
         Factor m_root = root.getFactor();
@@ -208,13 +208,10 @@ public class JointreeAsk implements BayesInference {
             messageMPE = pullMPERec((Cluster)e, root);
             m_root = m_root.pointwiseProduct(messageMPE.getFactor());
             messages.add(messageMPE);
-//            System.out.println("Message received " + messageMPE.getFactor());
-
         }
         maxAssignPair = BookAlgorithm.argmax(m_root);
 
         Assign maxAssign = new Assign(new HashMap<>(maxAssignPair.getKey().getAssign()));
-
         for(MessageMPE m : messages){
             subset = maxAssign.getSubset(m.getVars());
             maxAssignPair.getKey().merge(m.getMaxAssignMap().get(subset));
@@ -225,13 +222,11 @@ public class JointreeAsk implements BayesInference {
         return maxAssignPair;
     }
 
-    private MessageMPE pullMPERec(Cluster i, Cluster j) throws Exception {
+    private MessageMPE pullMPERec(Cluster i, Cluster j){
 
         List<MessageMPE> messages = new ArrayList<>();
-        if(i.getFactor() == null)
-            System.out.println("i="+i);
         Factor m_ij =i.getFactor();
-        MessageMPE messageMPE;
+        MessageMPE messageMPE = null;
 
         Assign subset;
 
@@ -239,13 +234,12 @@ public class JointreeAsk implements BayesInference {
 
             if (!e.equals(j)) {
                 messageMPE = pullMPERec((Cluster) e, i);
-                System.out.println((m_ij == null )+ " i " + i);
                 m_ij = m_ij.pointwiseProduct(messageMPE.getFactor());
                 messages.add(messageMPE);
             }
         }
 
-
+        try {
             messageMPE = BookAlgorithm.projectArgmax(m_ij, i.getSeparators(j).toArray(new RandomVariable[0]));
 
 
@@ -258,6 +252,9 @@ public class JointreeAsk implements BayesInference {
                     a.merge(m.getMaxAssignMap().get(subset));
                 }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return messageMPE;
     }
 
