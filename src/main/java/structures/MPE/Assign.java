@@ -1,4 +1,4 @@
-package structures.impl;
+package structures.MPE;
 
 import aima.core.probability.RandomVariable;
 
@@ -11,7 +11,13 @@ public class Assign {
 
     private final Map<RandomVariable, Object> assign;
 
-    public Assign() {
+    public Assign(RandomVariable r, Object o){
+        this();
+        assign.put(r,o);
+
+    }
+
+    private Assign() {
         this(new HashMap<>());
     }
 
@@ -28,16 +34,26 @@ public class Assign {
             this.assign.putAll(assign.assign);
     }
 
+    public boolean isSubsetOf(Assign assign){
+        Map<RandomVariable,Object> map = new HashMap<>(this.assign);
+
+        for(RandomVariable r : this.assign.keySet())
+            if(!assign.assign.containsKey(r) || !assign.assign.get(r).equals(this.assign.get(r)))
+                return false;
+        return true;
+    }
+
     public Assign getSubset(Set<RandomVariable> vars){
         Map<RandomVariable, Object> map = new HashMap<>();
         for (RandomVariable r : vars){
             map.put(r, assign.get(r));
         }
-        return new Assign( map);
+        return new Assign(map);
     }
 
     public String toString(){
-        return assign.toString();
+
+        return assign/*.keySet()*/.toString();
     }
 
     @Override

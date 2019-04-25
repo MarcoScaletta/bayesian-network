@@ -1,4 +1,4 @@
-package structures;
+package structures.impl;
 
 import aima.core.probability.RandomVariable;
 import aima.core.probability.bayes.Node;
@@ -11,7 +11,7 @@ public class CNode extends FullCPTNode implements Comparable<CNode>{
 
 
     private String name;
-    private Set<CNode> connections = new HashSet<CNode>();
+    private Set<CNode> connections = new HashSet<>();
     private Set<Pair<CNode,CNode>> fillInEdge;
     private int fillInEdgeNum;
 
@@ -34,7 +34,7 @@ public class CNode extends FullCPTNode implements Comparable<CNode>{
 
 
     public void moralize(){
-        Node[] parentArray = getParents().toArray(new Node[getParents().size()]);
+        Node[] parentArray = getParents().toArray(new Node[0]);
 
         for (int i = 0; i < parentArray.length-1; i++) {
             for (int j = i+1; j < parentArray.length; j++) {
@@ -45,7 +45,7 @@ public class CNode extends FullCPTNode implements Comparable<CNode>{
     }
 
     public void updateFillInEdge(){
-        CNode[] connectionArray = connections.toArray(new CNode[connections.size()]);
+        CNode[] connectionArray = connections.toArray(new CNode[0]);
 
         fillInEdge = new HashSet<>();
         this.fillInEdgeNum=0;

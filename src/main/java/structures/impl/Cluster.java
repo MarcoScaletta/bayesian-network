@@ -65,16 +65,20 @@ public class Cluster implements ElTreeNode {
         this.factor = factor;
     }
 
-    Factor getMessage() {
+    public Factor getMessage() {
         return message;
     }
 
-    void setMessage(Factor message) {
+    public void setMessage(Factor message) {
         this.message = message;
     }
 
-    Map<Cluster, Factor> getMexFrom() {
+    public Map<Cluster, Factor> getMexFrom() {
         return mexFrom;
+    }
+
+    public boolean hasTrivialFactor(){
+        return factor.getValues().length == 1 && factor.getValues()[0] == 1;
     }
 
     @Override

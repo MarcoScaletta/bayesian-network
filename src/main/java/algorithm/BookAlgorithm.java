@@ -5,14 +5,12 @@ import aima.core.probability.RandomVariable;
 import aima.core.probability.bayes.BayesianNetwork;
 import aima.core.probability.bayes.ConditionalProbabilityTable;
 import aima.core.probability.bayes.FiniteNode;
-import aima.core.probability.bayes.impl.CPT;
 import aima.core.probability.util.ProbabilityTable;
-import structures.Jointree;
 import structures.elimination_tree.ElTreeNode;
 import javafx.util.Pair;
-import structures.impl.Assign;
+import structures.MPE.Assign;
 import structures.impl.Cluster;
-import structures.impl.MessageMPE;
+import structures.MPE.MessageMPE;
 
 import java.util.*;
 
@@ -142,7 +140,7 @@ public class BookAlgorithm {
 
 
     public static void printFactor(Factor f){
-        f.iterateOver((v,p)->System.out.println("P(X="+v+")"+p));
+        f.iterateOver((v,p)->System.out.println("P("+v+")="+p));
     }
 
 
@@ -174,9 +172,10 @@ public class BookAlgorithm {
     }
 
     public static MessageMPE
-    projectArgmax(Factor factor, RandomVariable... vars) throws Exception {
+    projectArgmax(Factor factor,Cluster i, Cluster j, RandomVariable... vars) throws Exception {
         ProbabilityTable p = new ProbabilityTable(vars);
         final Map<Assign, Assign> map = new HashMap<>();
+
         factor.iterateOver((map1, v) -> p.iterateOverTable((map2, v1) -> {
             boolean b = true;
             double val;
@@ -184,10 +183,10 @@ public class BookAlgorithm {
             Assign tmp1,tmp2;
             Object [] values;
 
-            for (RandomVariable r : map2.keySet()){
-                b= b & map1.get(r).equals(map2.get(r));
-            }
+                for (RandomVariable r : map2.keySet()) {
 
+                    b = b && map1.get(r).equals(map2.get(r));
+                }
             if(b){
 
                 values = map2.values().toArray();
@@ -204,7 +203,7 @@ public class BookAlgorithm {
 
         }));
 
-        return new MessageMPE(factor,map);
+        return new MessageMPE(p,map);
     }
 
     @SuppressWarnings("Duplicates")
@@ -214,13 +213,12 @@ public class BookAlgorithm {
         maxVal.put("MAX",0.0);
 
         factor.iterateOver((map1, v) -> {
+//            System.out.println(map1 + "=" + v);
             if(v > maxVal.get("MAX")){
                 maxVal.put("MAX",v);
                 map.put("MAX_ASSIGN",new Assign(new HashMap<>(map1)));
 
-                System.out.println("best assign " + map1);
             }});
-        System.out.println("final best assign " + map.get("MAX_ASSIGN")+ " " + maxVal.get("MAX"));
         return new Pair<>(map.get("MAX_ASSIGN"),maxVal.get("MAX"));
     }
 

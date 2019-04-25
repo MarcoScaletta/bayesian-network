@@ -1,14 +1,13 @@
-package structures;
+package structures.impl;
 
 import aima.core.probability.Factor;
 import aima.core.probability.RandomVariable;
 import aima.core.probability.bayes.BayesianNetwork;
-import aima.core.probability.bayes.Node;
-import aima.core.probability.proposition.AssignmentProposition;
 import aima.core.probability.util.ProbabilityTable;
 import algorithm.BookAlgorithm;
 import javafx.util.Pair;
 import structures.elimination_tree.ElTreeNode;
+import structures.impl.CNode;
 import structures.impl.Cluster;
 
 import java.util.*;
@@ -31,8 +30,6 @@ public class Jointree {
             node = (CNode) bn.getNode(bn.getVariablesInTopologicalOrder().get(0));
             nodes.add(node);
             controlBNRec(node, nodes);
-            System.err.println("BN SIZE: " + bn.getVariablesInTopologicalOrder().size());
-            System.err.println("SUB BN SIZE: " + nodes.size());
             if(bn.getVariablesInTopologicalOrder().size() != nodes.size())
                 throw new Exception("There are at least 2 sub network disjoint, " +
                         "one consists of nodes" + nodes);
@@ -51,13 +48,8 @@ public class Jointree {
     private void factorControl() throws Exception {
 
         for(Cluster c : clusters)
-            if(c.getFactor() == null){
-                for(RandomVariable r : bn.getVariablesInTopologicalOrder()){
-                    System.out.println(r + " D=" + r.getDomain());
-                }
-
+            if(c.getFactor() == null)
                 throw new Exception("cluster " + c  + " has null factor");
-            }
     }
 
     public Jointree(BayesianNetwork bn) throws Exception {
@@ -236,10 +228,6 @@ public class Jointree {
             Factor f = new ProbabilityTable(new double[]{1});
             notInit.setFactor(f);
         }
-
-        System.out.println("cluster not init " + c);
-
-
     }
 
     public void separatorControl(){
@@ -259,4 +247,8 @@ public class Jointree {
         return vars;
     }
 
+    @Override
+    public String toString() {
+        return clusters.toString();
+    }
 }

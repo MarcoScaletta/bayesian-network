@@ -1,4 +1,4 @@
-package structures.impl;
+package structures.MPE;
 
 import aima.core.probability.Factor;
 import aima.core.probability.RandomVariable;
@@ -12,15 +12,25 @@ public class MessageMPE {
     private Set<RandomVariable> vars;
     private Map<Assign,Assign> maxAssignMap;
 
+    public MessageMPE(Factor factor) throws Exception {
+        this(factor, new HashMap<>());
+
+    }
+
     public MessageMPE(Factor factor, Map<Assign, Assign> maxAssignMap) throws Exception {
         this.factor = factor;
         this.maxAssignMap = maxAssignMap;
         this.vars = new HashSet<>();
 
 
-        System.out.println("Creating message: " + maxAssignMap);
+//        System.out.println("Creating message: " + maxAssignMap);
+
         Assign tmp = null;
         for(Assign assign : maxAssignMap.keySet()){
+            //
+
+
+
             if(tmp == null) {
                 tmp = assign;
                 vars.addAll(assign.getAssign().keySet());
@@ -47,5 +57,10 @@ public class MessageMPE {
 
     public Map<Assign, Assign> getMaxAssignMap() {
         return maxAssignMap;
+    }
+
+    @Override
+    public String toString() {
+        return vars.toString() + "->"+this.maxAssignMap.values();
     }
 }
