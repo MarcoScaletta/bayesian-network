@@ -14,21 +14,33 @@ import java.util.Scanner;
 
 public class Test {
 
-    public static void testQuery() throws Exception {
-        for(BayesianNetwork bn : BayesianNetworkFactory.bayesianNetworks){
+    private static String [] bns = new String[] {"child","survey","earthquake","asia", "cancer"};
 
-            RandomVariable v1 = bn.getVariablesInTopologicalOrder().get(1);
-            AssignmentProposition[] a1 =
-                    new AssignmentProposition[] {
-                            new AssignmentProposition(v1,((FiniteDomain)v1.getDomain()).getValueAt(0))};
-            Factor jAlgo,ask;
-            boolean found;
-            int error = 0;
-            int tot=0;
-            Jointree j = new Jointree(bn);
-            JointreeAsk jAsk = new JointreeAsk(new Jointree(bn),"VAR_EL",a1);
-            System.out.println(j);
-            for (RandomVariable r : bn.getVariablesInTopologicalOrder()){
+    public static void testQuery() throws Exception {
+        BayesianNetwork bn;
+        for(String s : bns){
+            bn = BayesianNetworkFactory.map.get(s);
+            System.out.println("\nQUERY su rete [" + s + "] con "
+                    + bn.getVariablesInTopologicalOrder().size() + " nodi");
+            testQuery(bn);
+            (new Scanner(System.in)).nextLine();
+        }
+    }
+
+
+    public static void testQuery(BayesianNetwork bn) throws Exception {
+        RandomVariable v1 = bn.getVariablesInTopologicalOrder().get(1);
+        AssignmentProposition[] a1 =
+                new AssignmentProposition[] {
+                        new AssignmentProposition(v1,((FiniteDomain)v1.getDomain()).getValueAt(0))};
+        Factor jAlgo,ask;
+        boolean found;
+        int error = 0;
+        int tot=0;
+        Jointree j = new Jointree(bn);
+        JointreeAsk jAsk = new JointreeAsk(new Jointree(bn),"VAR_EL",a1);
+        System.out.println(j);
+        for (RandomVariable r : bn.getVariablesInTopologicalOrder()){
             if(!r.equals(v1)) {
                 System.out.println("\nSTART:");
                 System.out.println("Assign: " + Arrays.toString(a1));
@@ -53,27 +65,31 @@ public class Test {
                 else
                     System.err.println("Error!");
             }
-        }
-        System.out.println("Total errors: " + error +" of "+tot);
-        System.out.println("FINISH");
-            (new Scanner(System.in)).nextLine();
+            System.out.println("Total errors: " + error +" of "+tot);
+            System.out.println("FINISH");
         }
     }
 
     public static void testMPE() throws Exception {
-        int i = 0;
-        for(BayesianNetwork bn : BayesianNetworkFactory.bayesianNetworks){
+        BayesianNetwork bn;
+        for(String s : bns){
+            bn = BayesianNetworkFactory.map.get(s);
 
-            System.out.println("\nMPE su rete " + ++i);
-            RandomVariable v1 = bn.getVariablesInTopologicalOrder().get(1);
-            AssignmentProposition[] a1 =
-                    new AssignmentProposition[] {
-                            new AssignmentProposition(v1,((FiniteDomain)v1.getDomain()).getValueAt(0))};
-
-            System.out.println("Assign: " + Arrays.toString(a1));
-            Jointree j = new Jointree(bn);
-            JointreeAsk jAsk = new JointreeAsk(new Jointree(bn),"MPE",a1);
+            System.out.println("\nMPE su rete [" + s + "] con "
+                    + bn.getVariablesInTopologicalOrder().size() + " nodi");
+            testMPE(bn);
         }
+    }
+
+    public static void testMPE(BayesianNetwork bn) throws Exception {
+        RandomVariable v1 = bn.getVariablesInTopologicalOrder().get(1);
+        AssignmentProposition[] a1 =
+                new AssignmentProposition[] {
+                        new AssignmentProposition(v1,((FiniteDomain)v1.getDomain()).getValueAt(0))};
+
+        System.out.println("Assign: " + Arrays.toString(a1));
+        Jointree j = new Jointree(bn);
+        JointreeAsk jAsk = new JointreeAsk(new Jointree(bn),"MPE",a1);
 
     }
 }
