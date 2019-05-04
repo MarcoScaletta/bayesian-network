@@ -1,8 +1,7 @@
-package structures.impl;
+package structures.jointree;
 
 import aima.core.probability.Factor;
 import aima.core.probability.RandomVariable;
-import structures.elimination_tree.ElTreeNode;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -31,21 +30,14 @@ public class Cluster implements ElTreeNode {
         this.mexFrom = new HashMap<>();
     }
 
-    public Set<RandomVariable> getVars() {
-        return vars;
-    }
-
-    private Set<RandomVariable> getIntersection(Cluster that){
-        Set<RandomVariable> tmp = new HashSet<>(this.vars);
-        tmp.retainAll(that.vars);
-        return tmp;
-    }
 
     public Set<RandomVariable> getSeparators(ElTreeNode that){
         return new HashSet<>(getIntersection((Cluster) that));
     }
 
-
+    public Set<RandomVariable> getVars() {
+        return vars;
+    }
     @Override
     public Factor getFactor() {
         return factor;
@@ -54,11 +46,6 @@ public class Cluster implements ElTreeNode {
     @Override
     public Set<ElTreeNode> getNeighbours() {
         return neighbours;
-    }
-
-    @Override
-    public Set<ElTreeNode> detDeleted() {
-        return deleted;
     }
 
     public void setFactor(Factor factor) {
@@ -89,5 +76,18 @@ public class Cluster implements ElTreeNode {
         nodesString = nodesString.substring(0,nodesString.length()-1)+"]";
 
         return nodesString;
+    }
+
+    // PRIVATE METHODS
+
+    /**
+     *
+     * @param that cluster
+     * @return variables set intersection of this and that cluster
+     */
+    private Set<RandomVariable> getIntersection(Cluster that){
+        Set<RandomVariable> tmp = new HashSet<>(this.vars);
+        tmp.retainAll(that.vars);
+        return tmp;
     }
 }

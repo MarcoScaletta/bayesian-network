@@ -2,9 +2,11 @@ package parser;
 
 import aima.core.probability.RandomVariable;
 import aima.core.probability.domain.FiniteDomain;
-import logger.Logger;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class BifProbabilityParser{
@@ -42,7 +44,12 @@ public class BifProbabilityParser{
     private String [][] values;
     private double[] probabilities;
 
-
+    /**
+     * Reading of probabilitis
+     * @param toParse string to be parsed
+     * @param map of string and variables
+     * @throws Exception exception
+     */
     public BifProbabilityParser(String toParse, Map<String, RandomVariable> map) throws Exception {
 
         String[] vars;
@@ -89,89 +96,9 @@ public class BifProbabilityParser{
             parsedVariables.add(vars[i].toUpperCase());
         }
 
-
         this.probabilities = new double[matchingProbs.size()];
         for (int i = 0; i < probabilities.length; i++)
             probabilities[i] = matchingProbs.get(i);
-
-
-//        try{
-//            sortProbabilities(map);
-//        }catch (NullPointerException e){
-//            e.printStackTrace();
-//            Logger.err("random variable [" + condVar + "] is not defined" +
-//                    "\n(please define variable before defining probabilities)");
-//            System.exit(1);
-//        }catch (Exception e ){
-//            e.printStackTrace();
-//        }
-
-    }
-
-    private void sortProbabilities(Map<String, RandomVariable> map) throws Exception {
-        FiniteDomain  varDomain;
-        FiniteDomain [] domains;
-
-        double [] prob;
-
-        if(values.length > 1){
-            if(parsedVariables.size() != values[0].length)
-                throw new Exception("Different number of conditioning variable: " +
-                        "\n defined " +parsedVariables + " but find " + values[0].length +
-                        " conditioning variable number in CPT");
-
-            Map<String [] , Double[]> map1 = new HashMap<>();
-            Double[] vals;
-            int ind = 0;
-
-            prob = new double[probabilities.length];
-            for (String[] s : values){
-                vals = new Double[map.get(condVar).getDomain().size()];
-                for (int j = 0; j < vals.length; j++)
-                    vals[j] = probabilities[ind++];
-                map1.put(s,vals);
-            }
-            for(String [] s : map1.keySet())
-
-
-            sortValues(map);
-            int index1=0;
-            for (int i = 0; i < values.length; i++){
-                for (double d : map1.get(values[i]))
-                    prob[index1++] = d;
-            }
-
-            probabilities = prob;
-        }
-    }
-
-    private void sortValues( Map<String, RandomVariable> map){
-        int index = 0;
-        FiniteDomain f;
-        List<String[]> l = new ArrayList<>();
-//        l.add(2,"a");
-        String [][] newVal = new String[values.length][];
-
-        String[] s;
-        for (int i = 0; i < values.length; i++) {
-            s = values[i];
-            index = 0;
-            for (int i1 = 0; i1 < s.length; i1++) {
-
-                f = (FiniteDomain) map.get(parsedVariables.get(i1)).getDomain();
-
-                index+=(Math.pow(f.size()+1 ,s.length-i1-1)*f.getOffset(s[i1]));
-
-            }
-
-//
-            newVal[index] = values[i];
-        }
-        values = newVal;
-    }
-
-    private void insert(List<String[]> list, String[]a){
-
     }
 
     public double[] getProbabilities() {

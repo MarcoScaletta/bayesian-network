@@ -4,7 +4,6 @@ import aima.core.probability.RandomVariable;
 import aima.core.probability.bayes.BayesianNetwork;
 import aima.core.probability.bayes.Node;
 import aima.core.probability.bayes.impl.BayesNet;
-import javafx.util.Pair;
 import logger.Logger;
 
 import java.io.BufferedReader;
@@ -31,11 +30,17 @@ public abstract class BifBNReader {
         System.out.println("Bayesian network built.");
     }
 
-    private BayesianNetwork buildNetwork(String file) throws Exception {
+    /**
+     * Method that builds a BayesianNetwork from filename
+     * @param filename name of filename
+     * @return a BayesianNetwork
+     * @throws Exception if there are problem with reading or building BN
+     */
+    private BayesianNetwork buildNetwork(String filename) throws Exception {
 
 
-        Logger.log("Parsing file <" + file + "> ...");
-        varAndProbDef(file);
+        Logger.log("Parsing file <" + filename + "> ...");
+        varAndProbDef(filename);
         Logger.log("End of parsing.");
 
 
@@ -86,8 +91,11 @@ public abstract class BifBNReader {
     }
 
 
-
-    private Pair<String[],String[]> varAndProbDef(String filename) {
+    /**
+     * Method that reads variables and probabilities definitions from file
+     * @param filename name of file
+     */
+    private void varAndProbDef(String filename) {
 
         BifProbabilityParser bifProbabilityParser;
         long line = 0;
@@ -147,14 +155,22 @@ public abstract class BifBNReader {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
     }
 
-
+    /**
+     * Creation of node with no parents
+     * @param var variable of node
+     * @param probs probabilities of node
+     * @return Node created
+     */
     private Node nodeCreation(RandomVariable var, double[] probs){
         return nodeCreation(var, probs,(Node[]) null);
     }
 
+    /**
+     * Sorting of probability parsers to make all variables defined
+     * @throws Exception
+     */
     private void sortProbParsers() throws Exception {
         Set<String> missing = missingVariables(bifProbabilityParsers);
         List<BifProbabilityParser> parsers;
@@ -174,6 +190,10 @@ public abstract class BifBNReader {
         bifProbabilityParsers =  parsers;
     }
 
+    /**
+     * Fix probabilites bugs
+     * @throws Exception exception
+     */
     private void fixProbabilities() throws Exception {
         RandomVariable var;
         double sum;
@@ -212,6 +232,11 @@ public abstract class BifBNReader {
         }
     }
 
+    /**
+     * Calculate missing variables
+     * @param set of probability parsers
+     * @return missing variable names
+     */
     private Set<String> missingVariables(List<BifProbabilityParser> set){
         Set<String> allVar = new HashSet<>();
         Set<String> missingVariable = new  HashSet<>();
@@ -225,6 +250,13 @@ public abstract class BifBNReader {
 
     }
 
+    /**
+     * Method to be implemented from concrete class
+     * @param var variable of node
+     * @param probs probabilities of node
+     * @param parents parents of node
+     * @return node
+     */
     protected abstract Node nodeCreation(RandomVariable var, double[] probs, Node... parents);
 
     // PUBLIC METHODS

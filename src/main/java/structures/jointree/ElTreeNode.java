@@ -1,9 +1,8 @@
-package structures.elimination_tree;
+package structures.jointree;
 
 import aima.core.probability.Factor;
 import aima.core.probability.RandomVariable;
 
-import java.util.HashSet;
 import java.util.Set;
 
 public interface ElTreeNode {
@@ -15,8 +14,11 @@ public interface ElTreeNode {
 
     Set<ElTreeNode> getNeighbours();
 
-    Set<ElTreeNode> detDeleted();
-
+    /**
+     *
+     * @param elTreeNode node of jointree
+     * @return separator of this and elTreeNode
+     */
     Set<RandomVariable> getSeparators(ElTreeNode elTreeNode);
 
 }

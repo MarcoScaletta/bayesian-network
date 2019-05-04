@@ -19,6 +19,11 @@ public class BifVariableParser {
 
     private RandomVariable parsedVariable;
 
+    /**
+     * Reading of variables definitions
+     * @param toParse string to be parsed
+     * @throws Exception exception
+     */
     public BifVariableParser(String toParse) throws Exception {
         String varName;
         Object [] values;

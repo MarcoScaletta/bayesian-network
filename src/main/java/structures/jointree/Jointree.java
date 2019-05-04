@@ -1,14 +1,10 @@
-package structures.impl;
+package structures.jointree;
 
 import aima.core.probability.Factor;
 import aima.core.probability.RandomVariable;
 import aima.core.probability.bayes.BayesianNetwork;
 import aima.core.probability.util.ProbabilityTable;
-import algorithm.BookAlgorithm;
 import javafx.util.Pair;
-import structures.elimination_tree.ElTreeNode;
-import structures.impl.CNode;
-import structures.impl.Cluster;
 
 import java.util.*;
 
@@ -20,37 +16,6 @@ public class Jointree {
     private BayesianNetwork bn;
 
     private HashMap<RandomVariable,Cluster> varAssignment;
-
-    private void controlBN(BayesianNetwork bn) throws Exception {
-        Set<CNode> nodes = new HashSet<>();
-        CNode node;
-        if(bn.getVariablesInTopologicalOrder().size() < 1)
-            throw new Exception ("Bayesian Network empty!");
-        else{
-            node = (CNode) bn.getNode(bn.getVariablesInTopologicalOrder().get(0));
-            nodes.add(node);
-            controlBNRec(node, nodes);
-            if(bn.getVariablesInTopologicalOrder().size() != nodes.size())
-                throw new Exception("There are at least 2 sub network disjoint, " +
-                        "one consists of nodes" + nodes);
-        }
-    }
-
-    private void controlBNRec (CNode node, Set<CNode> nodes){
-        for(CNode c : node.getConnections()){
-            if(!nodes.contains(c)){
-                nodes.add(c);
-                controlBNRec(c,nodes);
-            }
-        }
-    }
-
-    private void factorControl() throws Exception {
-
-        for(Cluster c : clusters)
-            if(c.getFactor() == null)
-                throw new Exception("cluster " + c  + " has null factor");
-    }
 
     public Jointree(BayesianNetwork bn) throws Exception {
         this.bn = bn;
@@ -67,7 +32,7 @@ public class Jointree {
         fillEdge(cNodesArray);
 
         createJointree(cNodesArray);
-        BookAlgorithm.neighboursControl(new ArrayList<>(clusters));
+        neighboursControl(new ArrayList<>(clusters));
         separatorControl();
         factorControl();
 
@@ -89,6 +54,10 @@ public class Jointree {
 
     // PRIVATE METHODS
 
+    /**
+     * Initialization of jointree
+     * @return array sorted of node
+     */
     private CNode [] init(){
         Set<CNode> cNodes = new HashSet<>();
         CNode c;
@@ -106,6 +75,10 @@ public class Jointree {
         return cNodesArray;
     }
 
+    /**
+     * fill-in-edge method
+     * @param cNodesArray sorted array of node
+     */
     private void fillEdge(CNode [] cNodesArray){
         Set<CNode> eliminatedCNode = new HashSet<>();
 
@@ -120,6 +93,11 @@ public class Jointree {
         }
     }
 
+    /**
+     * Creation of jointree
+     * @param cNodesArray sorted array of node
+     * @throws Exception
+     */
     private void createJointree(CNode [] cNodesArray) throws Exception {
 
         boolean alreadyInCluster;
@@ -155,13 +133,10 @@ public class Jointree {
 
     }
 
-    private Set<RandomVariable> getAllVarsFromClusters(Set<Cluster> clusters){
-        Set<RandomVariable> cNodeSet = new HashSet<>();
-        for (Cluster c : clusters)
-            cNodeSet.addAll(c.getVars());
-        return cNodeSet;
-    }
-
+    /**
+     * Connection of clusters
+     * @param clusters clusters to be connected
+     */
     private void connectClusters(List<Cluster> clusters){
         Set<Cluster> connected = new HashSet<>();
         Cluster tmp;
@@ -194,6 +169,10 @@ public class Jointree {
         }
     }
 
+    /**
+     * Assignment of CPTs
+     * @throws Exception exception
+     */
     private void assignCPTs() throws Exception {
         boolean foundCluster;
 
@@ -230,7 +209,9 @@ public class Jointree {
         }
     }
 
-    public void separatorControl(){
+    // CONTROL METHODS
+
+    private void separatorControl(){
         for (Cluster c : clusters){
             for (ElTreeNode n : c.getNeighbours()){
                 if(c.getSeparators(n).size() < 1){
@@ -240,11 +221,63 @@ public class Jointree {
         }
     }
 
-    private Set<RandomVariable> getAllVarsFromNodes(Set<CNode> nodes){
-        Set<RandomVariable> vars = new HashSet<>();
-        for (CNode n : nodes)
-            vars.add(n.getRandomVariable());
-        return vars;
+    /**
+     * Control if some neighbour is missing
+     * @param nodes nodes
+     * @throws Exception exception
+     */
+    private static void neighboursControl(Collection<ElTreeNode> nodes) throws Exception {
+        for (ElTreeNode e : nodes)
+            for (ElTreeNode n : e.getNeighbours())
+                if(!n.getNeighbours().contains(e))
+                    throw new Exception("error neighbour missing");
+    }
+
+    /**
+     *
+     * @param bn to be controlled
+     * @throws Exception exception
+     */
+    private void controlBN(BayesianNetwork bn) throws Exception {
+        Set<CNode> nodes = new HashSet<>();
+        CNode node;
+        if(bn.getVariablesInTopologicalOrder().size() < 1)
+            throw new Exception ("Bayesian Network empty!");
+        else{
+            node = (CNode) bn.getNode(bn.getVariablesInTopologicalOrder().get(0));
+            nodes.add(node);
+            controlBNRec(node, nodes);
+            if(bn.getVariablesInTopologicalOrder().size() != nodes.size())
+                throw new Exception("There are at least 2 sub network disjoint, " +
+                        "one consists of nodes" + nodes);
+        }
+    }
+
+    private void controlBNRec (CNode node, Set<CNode> nodes){
+        for(CNode c : node.getConnections()){
+            if(!nodes.contains(c)){
+                nodes.add(c);
+                controlBNRec(c,nodes);
+            }
+        }
+    }
+
+    /**
+     * Control if some cluster has null factor
+     * @throws Exception if some cluster has null factor
+     */
+    private void factorControl() throws Exception {
+
+        for(Cluster c : clusters)
+            if(c.getFactor() == null)
+                throw new Exception("cluster " + c  + " has null factor");
+    }
+
+    private Set<RandomVariable> getAllVarsFromClusters(Set<Cluster> clusters){
+        Set<RandomVariable> cNodeSet = new HashSet<>();
+        for (Cluster c : clusters)
+            cNodeSet.addAll(c.getVars());
+        return cNodeSet;
     }
 
     @Override

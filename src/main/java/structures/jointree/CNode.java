@@ -1,4 +1,4 @@
-package structures.impl;
+package structures.jointree;
 
 import aima.core.probability.RandomVariable;
 import aima.core.probability.bayes.Node;
@@ -15,16 +15,14 @@ public class CNode extends FullCPTNode implements Comparable<CNode>{
     private Set<Pair<CNode,CNode>> fillInEdge;
     private int fillInEdgeNum;
 
-    public CNode(RandomVariable var, double[] distribution) {
-        this(var, distribution, (Node[])null);
-    }
-
     public CNode(RandomVariable var, double[] values, Node... parents) {
         super(var, values, parents);
         this.name = var.getName();
     }
 
-
+    /**
+     * Creation of connection of this CNode
+     */
     public void createConnection() {
         for (Node n : this.getChildren())
             connections.add((CNode)n);
@@ -32,7 +30,9 @@ public class CNode extends FullCPTNode implements Comparable<CNode>{
             connections.add((CNode)n);
     }
 
-
+    /**
+     * Sub-moralization of graph to which this node belongs
+     */
     public void moralize(){
         Node[] parentArray = getParents().toArray(new Node[0]);
 
@@ -44,6 +44,9 @@ public class CNode extends FullCPTNode implements Comparable<CNode>{
         }
     }
 
+    /**
+     * Updating of number of edge that would be create with fill-in-edge method of graph
+     */
     public void updateFillInEdge(){
         CNode[] connectionArray = connections.toArray(new CNode[0]);
 
@@ -57,14 +60,10 @@ public class CNode extends FullCPTNode implements Comparable<CNode>{
                 }
     }
 
-    public Set<Pair<CNode, CNode>> getFillInEdge() {
-        return fillInEdge;
-    }
-
-    public Set<CNode> getConnections() {
-        return connections;
-    }
-
+    /**
+     *
+     * @return the family of the node
+     */
     public Set<RandomVariable> getFamily(){
         Set<RandomVariable> family = new HashSet<>();
         family.add(this.getRandomVariable());
@@ -73,8 +72,12 @@ public class CNode extends FullCPTNode implements Comparable<CNode>{
         return family;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Set<Pair<CNode, CNode>> getFillInEdge() {
+        return fillInEdge;
+    }
+
+    public Set<CNode> getConnections() {
+        return connections;
     }
 
     @Override
@@ -91,7 +94,6 @@ public class CNode extends FullCPTNode implements Comparable<CNode>{
     }
 
     public int compareTo(CNode that) {
-
         if(this.getConnections().size()  == that.getConnections().size())
             return this.fillInEdgeNum - that.fillInEdgeNum;
         return this.getConnections().size()-that.getConnections().size();
